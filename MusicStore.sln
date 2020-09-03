@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicStore.Domain", "MusicStore.Domain\MusicStore.Domain.csproj", "{7EC971E1-EA3D-4C40-82B1-5578EEB586DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicStore.WebUI", "MusicStore.WebUI\MusicStore.WebUI.csproj", "{9EF5AC29-33C6-4914-A7A1-FE67D318F7DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicStore.UnitTests", "MusicStore.UnitTests\MusicStore.UnitTests.csproj", "{ACB16388-3F33-4204-9F95-A1274843397D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EC971E1-EA3D-4C40-82B1-5578EEB586DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EC971E1-EA3D-4C40-82B1-5578EEB586DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EC971E1-EA3D-4C40-82B1-5578EEB586DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EC971E1-EA3D-4C40-82B1-5578EEB586DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EF5AC29-33C6-4914-A7A1-FE67D318F7DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF5AC29-33C6-4914-A7A1-FE67D318F7DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF5AC29-33C6-4914-A7A1-FE67D318F7DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF5AC29-33C6-4914-A7A1-FE67D318F7DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACB16388-3F33-4204-9F95-A1274843397D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACB16388-3F33-4204-9F95-A1274843397D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACB16388-3F33-4204-9F95-A1274843397D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACB16388-3F33-4204-9F95-A1274843397D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3D621563-8E54-423B-B47D-1191B30336F1}
+	EndGlobalSection
+EndGlobal

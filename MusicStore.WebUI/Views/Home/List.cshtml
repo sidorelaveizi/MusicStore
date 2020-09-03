@@ -1,0 +1,17 @@
+﻿@*@model MusicStore.Domain.Entities.Album*@
+@using MusicStore.Domain.Entities
+@model IEnumerable<Album>
+
+@{
+    ViewBag.Title = "Albums";
+}
+
+@foreach (var p in Model)
+{
+    <div>
+        <h3>@p.Title</h3>
+        @p.AlbumArtUrl
+        <h4>@p.Price.ToString("c")</h4>
+    </div>
+}
+
