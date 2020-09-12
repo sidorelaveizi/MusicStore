@@ -1,19 +1,27 @@
 ﻿using MusicStore.Domain.Abstract;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace MusicStore.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IAlbumRepository repository;
+        IUnitOfWork repo;
 
-        public HomeController(IAlbumRepository albumRepository)
+        public HomeController(IUnitOfWork work)
         {
-            repository = albumRepository;
+            repo = work;
         }
-        public ViewResult List()
+
+
+        public ActionResult Index()
         {
-            return View(repository.Albums);
+            var albums = repo.Albums.GetAll().ToList();
+
+            return View(albums);
         }
+
+
+       
     }
 }

@@ -7,6 +7,6 @@ namespace MusicStore.Domain.Entities
         public int GenreId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<Album> Albums { get; set; }
+        public virtual ICollection<Album> Albums { get; set; }
     }
 }

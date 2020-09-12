@@ -1,0 +1,23 @@
+﻿@model MusicStore.WebUI.Models.AlbumViewModels
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul>
+
+    @foreach (var genre in Model.Genres)
+    {
+        <li>
+            @Html.ActionLink(genre.Name,
+                   "Browse")
+
+        </li>
+
+    }
+
+</ul>
+
+
+

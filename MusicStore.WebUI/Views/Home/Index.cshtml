@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MusicStore.Domain.Entities.Album>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<ul id="album-list">
+    @foreach (var album in Model)
+    {
+        <li><a href="@Url.Action("Details", "Store",
+                new { id = album.AlbumId })">
+
+            <img alt="@album.Title" src="@album.AlbumArtUrl" />
+            <span>@album.Title</span> </a>
+        </li>
+
+        @*<li>@album.Title</li>*@
+    }
+</ul>
+

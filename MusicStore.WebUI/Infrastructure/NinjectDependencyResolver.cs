@@ -1,6 +1,4 @@
-﻿using Moq;
-using MusicStore.Domain.Abstract;
-using MusicStore.Domain.Entities;
+﻿using MusicStore.Domain.Abstract;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -26,13 +24,8 @@ namespace MusicStore.WebUI.Infrastructure
         }
         private void AddBindings()
         {
-            Mock<IAlbumRepository> mock = new Mock<IAlbumRepository>();
-            mock.Setup(m => m.Albums).Returns(new List<Album> {
-new Album { Title = "Football", Price = 25, AlbumArtUrl="fvfdg"},
-new Album { Title = "Surf board", Price = 179 },
-new Album { Title = "Running shoes", Price = 95 }
-});
-            kernel.Bind<IAlbumRepository>().ToConstant(mock.Object);
+           
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }
 }
