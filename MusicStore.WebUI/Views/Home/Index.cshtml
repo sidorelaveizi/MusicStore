@@ -4,18 +4,28 @@
     ViewBag.Title = "Index";
 }
 
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
 
+{
+    <p>
+        Search by Album Tile: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
 <ul id="album-list">
     @foreach (var album in Model)
     {
-        <li><a href="@Url.Action("Details", "Store",
+        <li>
+            <a href="@Url.Action("Details", "Store",
                 new { id = album.AlbumId })">
 
-            <img alt="@album.Title" src="@album.AlbumArtUrl" />
-            <span>@album.Title</span> </a>
+                <img alt="@album.Title" src="@album.AlbumArtUrl" />
+                <span>@album.Title</span>
+            </a>
         </li>
-
-        @*<li>@album.Title</li>*@
     }
 </ul>
+
+
+
 

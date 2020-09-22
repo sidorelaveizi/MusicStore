@@ -8,13 +8,12 @@ namespace MusicStore.WebUI.Controllers
 {
     public class AlbumsController : Controller
     {
-        IUnitOfWork repo;
+        private readonly IUnitOfWork repo;
 
         public AlbumsController(IUnitOfWork work)
         {
             repo = work;
         }
-        
 
         // GET: /Albums/
         public ViewResult Index()
@@ -96,7 +95,7 @@ namespace MusicStore.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Album album = repo.Albums.GetById(id);
+           /* Album album =*/ repo.Albums.GetById(id);
             repo.Albums.Delete(id);
             repo.Save();
             return RedirectToAction("Index");

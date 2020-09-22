@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace MusicStore.Domain.Abstract
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected DbContext context;
 
@@ -37,7 +37,7 @@ namespace MusicStore.Domain.Abstract
         {
             table.Add(obj);
         }
-        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
             return table.Where(predicate);
         }
@@ -74,5 +74,7 @@ namespace MusicStore.Domain.Abstract
         {
             _context.SaveChanges();
         }
+
+        
     }
 }

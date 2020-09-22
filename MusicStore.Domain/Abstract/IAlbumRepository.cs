@@ -5,11 +5,12 @@ namespace MusicStore.Domain.Abstract
 {
     public interface IAlbumRepository : IGenericRepository<Album>
     {
-         Genre GetGenre(int AlbumId);
-
-         Artist GetArtist(int AlbumId);
+        Genre GetByName(string genre);
 
         IEnumerable<Album> GetAlbumByGenre(int id);
+
+        IEnumerable<Album> SearchAlbum(string searchString);
+
 
     }
 }

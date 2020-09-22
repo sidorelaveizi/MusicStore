@@ -5,19 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<ul>
 
-    @foreach (var genre in Model.Genres)
-    {
-        <li>
-            @Html.ActionLink(genre.Name,
-                   "Browse")
+@*@section Sidebar{
+<div class="view">*@
+    <ul>
 
-        </li>
+        @foreach (var genre in Model.Genres)
+        {
+            <li class="button">
+                @Html.ActionLink(genre.Name,
+                       "Browse")
 
-    }
+            </li>
 
-</ul>
+        }
+
+    </ul>
+@*</div>
+    
+    }*@
 
 
 

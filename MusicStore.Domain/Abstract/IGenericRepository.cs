@@ -8,6 +8,7 @@ namespace MusicStore.Domain.Abstract
     {
         IEnumerable<T> GetAll();
         T GetById(object id);
+        //T Add(T obj);
 
         void Insert(T obj);
         IEnumerable<T> Find(Expression<Func<T, bool>> predicate);

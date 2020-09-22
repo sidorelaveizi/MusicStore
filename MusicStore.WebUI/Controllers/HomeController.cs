@@ -6,22 +6,35 @@ namespace MusicStore.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        IUnitOfWork repo;
+        private readonly IUnitOfWork repo;
 
         public HomeController(IUnitOfWork work)
         {
             repo = work;
         }
-
-
-        public ActionResult Index()
+       
+        public ActionResult Index(string searchString)
         {
+
+
+            //var albums = repo.Albums.SearchAlbum(searchString);
             var albums = repo.Albums.GetAll().ToList();
+            //var albums = from a in repo.Albums.SearchAlbum(searchString)
+            //            select a;
 
             return View(albums);
         }
 
+        //public ActionResult SearchAlbum(string searchString)
+        //{
+            
+            
+        //        var albums = from a in repo.Albums.SearchAlbum(searchString)
+        //                     select a;
 
-       
+        //    return View(albums);
+        //}
+
+
     }
 }

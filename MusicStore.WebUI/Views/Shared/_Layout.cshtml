@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Site.css")"
@@ -10,13 +11,14 @@
     <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")"
             type="text/javascript"></script>
 
-    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="~/Content/Images/logo.png"/>
-            ASP.NET MVC MUSIC STORE 
+            <img src="~/Content/Images/logo.png" />
+            ASP.NET MVC MUSIC STORE
             <span id="header"></span>
         </a>
         <ul class="nav justify-content-end" id="navlist">
@@ -27,30 +29,37 @@
                 <a class="nav-link" href="/Store/">Store</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Cart(0)</a>
+                <a class="nav-link" href="/ShoppingCart/">Cart(0)</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Admin</a>
+                <a class="nav-link" href="/Admin/">Admin</a>
             </li>
         </ul>
     </nav>
-    <div class="row panel">
-        <div id="genre" class="col-xs-3">
-            Put something useful here later
-            @*@Html.Action("Index", "Store")*@
-
-        </div>
-        <div class="col-xs-8">
-            <img src="~/Content/Images/home-showcase.png" />
-            @RenderBody()
-        </div>
-    </div>
-
-
-    <footer>
-        built with <a href="http://asp.net/mvc">ASP.NET MVC 5</a>
-    </footer>
-       
    
+    <div class="row panel">
+        @*@if (IsSectionDefined("Sidebar"))
+        {*@
+            <div id="genre" class="col-xs-3">
+                @*@RenderSection("Sidebar")
+                <div class="layout">
+                    @Html.Action("Index", "Store")
+                </div>*@
+                Put something useful here later
+            </div>
+        @*}*@
+
+            <div class="col-xs-8">
+                <img src="~/Content/Images/home-showcase.png" />
+                @RenderBody()
+            </div>
+       </div>
+    
+
+    <footer class="panel-footer">
+        <p> built with <a href="http://asp.net/mvc">ASP.NET MVC 5</a></p> 
+    </footer>
+
+
 </body>
 </html>
