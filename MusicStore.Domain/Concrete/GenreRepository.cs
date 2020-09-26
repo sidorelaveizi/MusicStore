@@ -6,25 +6,26 @@ namespace MusicStore.Domain.Abstract
 {
     public class GenreRepository : GenericRepository<Genre>, IGenreRepository
     {
-        public GenreRepository(ApplicationDbContext context) : base(context)
+        private readonly ApplicationDbContext _context;
+        public GenreRepository(ApplicationDbContext context)
         {
-
+            _context = context;
         }
         public IEnumerable<Album> GetAlbum(int GenreId)
         {
-          return Context.Genres.Find(GenreId).Albums;
+          return _context.Genres.Find(GenreId).Albums;
            
             //var data = this.Context.Albums;
             //return null;
 
 
         }
-        public ApplicationDbContext Context
-        {
-            get
-            {
-                return this.context as ApplicationDbContext;
-            }
-        }
+        //public ApplicationDbContext Context
+        //{
+        //    get
+        //    {
+        //        return this.context as ApplicationDbContext;
+        //    }
+        //}
     }
 }

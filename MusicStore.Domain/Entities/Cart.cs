@@ -13,5 +13,7 @@ namespace MusicStore.Domain.Entities
         public DateTime DateCreated { get; set; }
 
         public virtual Album Album { get; set; }
+
+        public string ShoppingCartId { get; set; }
     }
 }

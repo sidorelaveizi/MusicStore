@@ -8,42 +8,26 @@ namespace MusicStore.Domain.Abstract
 {
     public class AlbumRepository : GenericRepository<Album>, IAlbumRepository
     {
-
-        public AlbumRepository(ApplicationDbContext context) : base(context)
+        private readonly ApplicationDbContext _context;
+        public AlbumRepository(ApplicationDbContext context) 
         {
+            _context = context;
 
         }
-        public Artist GetArtist(int AlbumId)
+       
+       public IEnumerable<Album> GetAlbumsByGenre(int id)
         {
-            return this.Context.Albums.Find(AlbumId).Artist;
-
+            List<Album> albums = new List<Album>();
            
+            albums= _context.Albums.Where(g => g.GenreId == id).ToList();
+
+            return albums;
         }
 
-         public Genre GetGenre(int AlbumId)
-        {
-
-            return this.Context.Albums.Find(AlbumId).Genre;
-        }
-
-       public IEnumerable<Album> GetAlbumByGenre(int id)
-        {
-            return this.Context.Albums.Where(g => g.GenreId == id).ToList();
-        }
-
-        public Genre GetByName(string genre)
-        {
-
-            // Retrieve Genre and its Associated Albums from database
-            var genreModel = this.Context.Genres.Include("Albums")
-                .Single(g => g.Name == genre);
-
-            return genreModel;
-        }
-        //Searching
+        //Search album by title
         public IEnumerable<Album> SearchAlbum(string searchString)
         {
-            var albums = from a in this.Context.Albums
+            var albums = from a in _context.Albums
                          select a;
 
             if (!String.IsNullOrEmpty(searchString))
@@ -56,12 +40,23 @@ namespace MusicStore.Domain.Abstract
 
 
 
-        public ApplicationDbContext Context {
-            get
-            {
-                return this.context as ApplicationDbContext;
-            }
+        public Genre GetByName(string genre)
+        {
+
+            // Retrieve Genre and its Associated Albums from database
+            var genreModel = _context.Genres.Include("Albums")
+                .Single(g => g.Name == genre);
+
+            return genreModel;
         }
+        
+
+        //public ApplicationDbContext Context {
+        //    get
+        //    {
+        //        return this.context as ApplicationDbContext;
+        //    }
+        //}
 
 
     }

@@ -5,11 +5,13 @@ namespace MusicStore.WebUI.Models
 {
     public class AlbumViewModels 
     {
-
+        
        public Album Albums { get; set; }
        public IEnumerable<Genre> Genres { get; set; }
-        public IEnumerable<Artist> Artists { get; set; }
-       public string SearchString { get; set; }
+        public Artist Artists { get; set; }
+
+        public Genre Genre { get; set; }
+      
 
     }
 }

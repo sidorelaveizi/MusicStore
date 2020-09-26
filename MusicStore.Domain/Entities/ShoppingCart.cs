@@ -9,9 +9,9 @@ namespace MusicStore.Domain.Entities
 {
     public partial class ShoppingCart
     {
-       private readonly ApplicationDbContext storeDB = new ApplicationDbContext();
+        private readonly ApplicationDbContext storeDB = new ApplicationDbContext();
 
-       public string ShoppingCartId { get; set; }
+        public string ShoppingCartId { get; set; }
 
         public const string CartSessionKey = "CartId";
 

@@ -13,12 +13,20 @@ namespace MusicStore.Domain.Abstract
             Albums = new AlbumRepository(context);
             
             Genres = new GenreRepository(context);
+            Carts = new ShoppingRepository(context);
+            Cart = new CartRepository(context);
+            
                 
         }
         public IAlbumRepository Albums
         {
             get; private set;
 
+        }
+
+        public ICartRepository Cart
+        {
+            get; private set;
         }
         
 
@@ -27,7 +35,10 @@ namespace MusicStore.Domain.Abstract
             get; private set;
         }
 
-       
+        public IShoppingRepository Carts
+        {
+            get; private set;
+        }
 
         public void Dispose()
         {

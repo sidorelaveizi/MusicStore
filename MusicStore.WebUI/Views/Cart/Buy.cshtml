@@ -1,0 +1,85 @@
+﻿@using MusicStore.Domain.Entities
+@model MusicStore.Domain.Entities.Album
+@{
+    ViewBag.Title = "Shopping Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>
+    <em>Review</em> your cart:
+</h3>
+<p class="button">
+    @*@Html.ActionLink("Checkout Now", "AddressAndPayment", "Checkout")*@
+    @Html.ActionLink("Checkout Now", "LogOn", "Account")
+</p>
+
+<p class="button">
+    @Html.ActionLink("Continue Shopping", "Index", "Home")
+</p>
+<div id="update-message">
+</div>
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                Album Name
+            </th>
+            <th>
+                Price (each)
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (CartLine item in (List<CartLine>)Session["cart"])
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Albums.Title,
+                    "Details", "Store", new { id = item.Albums.AlbumId }, null)
+                </td>
+
+                <td>
+                    @item.Albums.Price
+                </td>
+                <td>@item.Quantity</td>
+                <td><a href="@Url.Action("Remove", "Cart", new { id = item.Albums.AlbumId })">Remove from cart</a></td>
+            </tr>
+
+            <tr>
+                <td>
+                    Total
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td id="cart-total">
+                    @{
+                        List<CartLine> cart = (List<CartLine>)Session["cart"];
+                        var total = cart.Sum(a => a.Albums.Price * a.Quantity);
+                    }
+                    @total
+                    @*@(item.Albums.Price * item.Quantity)*@
+                </td>
+            </tr>
+        }
+        @*<tr>
+            <td align="right" colspan="6">Sum</td>
+            <td>
+                @{
+                    List<CartLine> cart = (List<CartLine>)Session["cart"];
+                    var total = cart.Sum(item => item.Albums.Price * item.Quantity);
+                }
+                @total
+            </td>
+        </tr>*@
+    </tbody>
+</table>
+
+@*<a href="@Url.Action("Index", "Product")">Continue Shopping</a>*@
+
+

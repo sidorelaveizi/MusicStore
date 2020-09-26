@@ -7,7 +7,8 @@ namespace MusicStore.Domain.Abstract
     {
         Genre GetByName(string genre);
 
-        IEnumerable<Album> GetAlbumByGenre(int id);
+        IEnumerable<Album> GetAlbumsByGenre(int id);
+
 
         IEnumerable<Album> SearchAlbum(string searchString);
 

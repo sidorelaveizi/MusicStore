@@ -1,4 +1,5 @@
 ﻿@model MusicStore.Domain.Entities.Album
+@*@model MusicStore.WebUI.Models.AlbumViewModels*@
 
 @{
     ViewBag.Title = "Album - " + Model.Title;
@@ -12,20 +13,29 @@
 </p>
 <div id="album-details">
     @*<p>
-        <em>Genre:</em>
-        @Model.Genre.Name
-    </p>*@
-    @*<p>
-        <em>Artist:</em>
-        @Model.Artist.Name
-    </p>*@
+            <em>Genre:</em>
+            @Model.Genre.Name
+        </p>
+        <p>
+            <em>Artist:</em>
+            @Model.Artists.Name
+        </p>*@
     <p>
         <em>Price:</em>
         @String.Format("{0:F}",
 Model.Price)
     </p>
+    @*<p class="button">
+            @Html.ActionLink("Add to cart", "AddToCart",
+            "ShoppingCart", new { id = Model.AlbumId }, "")
+    </p>*@
+
     <p class="button">
-        @Html.ActionLink("Add to cart", "AddToCart",
-        "ShoppingCart", new { id = Model.AlbumId }, "")
+        @Html.ActionLink("Add to cart", "Buy",
+        "Cart", new { id = Model.AlbumId }, "")
     </p>
+
+    
+   
+    @*<span class="glyphicon glyphicon-shopping-cart"></span>*@
 </div>

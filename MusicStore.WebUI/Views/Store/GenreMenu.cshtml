@@ -1,0 +1,12 @@
+﻿@model MusicStore.WebUI.Models.AlbumViewModels
+
+<ul id="categories">
+    @foreach (var genre in Model.Genres)
+    {
+        <li>
+            @Html.ActionLink(genre.Name,
+            "Browse",
+            new { id = genre.GenreId })
+        </li>
+    }
+</ul>

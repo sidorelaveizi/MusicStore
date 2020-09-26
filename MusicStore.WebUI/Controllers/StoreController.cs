@@ -34,6 +34,8 @@ namespace MusicStore.WebUI.Controllers
 
             return View(album);
         }
+
+        //test
         public ActionResult Merr(string name)
         {
             var albums = repo.Albums.GetByName(name);
@@ -41,8 +43,9 @@ namespace MusicStore.WebUI.Controllers
 
         }
 
-
-        public ActionResult Browse(int id=1)
+        //
+        // GET: /Store/Browse
+        public ActionResult Browse(int id)
         {
 
             // Retrieve Genre and its Associated Albums from database
@@ -51,7 +54,7 @@ namespace MusicStore.WebUI.Controllers
             //    Albums = repo.Albums.GetAlbumByGenre(id),
             //};
 
-           var albums = repo.Albums.GetAlbumByGenre(id);
+           var albums = repo.Albums.GetAlbumsByGenre(id);
 
             
           
@@ -60,8 +63,20 @@ namespace MusicStore.WebUI.Controllers
            return View(albums);
         }
 
-       
-      
+        //
+        // GET: /Store/GenreMenu
+
+        [ChildActionOnly]
+        public ActionResult GenreMenu()
+        {
+            AlbumViewModels model = new AlbumViewModels();
+            model.Genres = repo.Genres.GetAll();
+
+            return PartialView(model);
+        }
+
+
+
 
     }
 }

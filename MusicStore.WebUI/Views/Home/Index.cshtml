@@ -1,16 +1,22 @@
 ﻿@model IEnumerable<MusicStore.Domain.Entities.Album>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ASP.NET MVC Music Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+    <div id="promotion">
+    </div>
 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
 
 {
+
+<div id="search">
     <p>
         Search by Album Tile: @Html.TextBox("SearchString")
         <input type="submit" value="Search" />
     </p>
+</div>
+    
 }
 <ul id="album-list">
     @foreach (var album in Model)

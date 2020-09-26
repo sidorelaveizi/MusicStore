@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using MusicStore.Domain.Entities
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -15,11 +16,11 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 </head>
 <body>
+
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">
             <img src="~/Content/Images/logo.png" />
             ASP.NET MVC MUSIC STORE
-            <span id="header"></span>
         </a>
         <ul class="nav justify-content-end" id="navlist">
             <li class="nav-item">
@@ -29,37 +30,41 @@
                 <a class="nav-link" href="/Store/">Store</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/ShoppingCart/">Cart(0)</a>
+                @*<a class="nav-link" href="/ShoppingCart/">Cart(0)</a>*@
+                <a class="nav-link" href="/Cart/Buy/">Cart(0)</a>
+                @*@if (Session["cart"] != null)
+            {
+                foreach (CartLine item in (List<CartLine>)Session["cart"])
+                {
+                <li><a href="#">@item.Albums.Title (@item.Quantity)</a></li>
+                 }
+             }*@
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/Admin/">Admin</a>
+                <a class="nav-link" href="/Account">Admin</a>
             </li>
         </ul>
     </nav>
-   
-    <div class="row panel">
-        @*@if (IsSectionDefined("Sidebar"))
-        {*@
-            <div id="genre" class="col-xs-3">
-                @*@RenderSection("Sidebar")
-                <div class="layout">
-                    @Html.Action("Index", "Store")
-                </div>*@
-                Put something useful here later
-            </div>
-        @*}*@
+    <span id="header"></span>
 
-            <div class="col-xs-8">
-                <img src="~/Content/Images/home-showcase.png" />
+    <div class="row panel">
+           
+            <div id="genre" class="col-xs-3">
+                <div>
+                    @{Html.RenderAction("GenreMenu", "Store");}
+                </div>        
+            </div>
+            
+
+            <div class="col-xs-8">   
                 @RenderBody()
             </div>
-       </div>
-    
+    </div>
 
-    <footer class="panel-footer">
-        <p> built with <a href="http://asp.net/mvc">ASP.NET MVC 5</a></p> 
+
+    <footer id="footer" class="panel-footer">
+        <p> built with <a href="http://asp.net/mvc">ASP.NET MVC 5</a></p>
     </footer>
-
 
 </body>
 </html>

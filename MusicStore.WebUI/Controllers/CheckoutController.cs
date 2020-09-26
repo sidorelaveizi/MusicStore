@@ -1,4 +1,5 @@
 ﻿using MusicStore.Domain.Abstract;
+using MusicStore.Domain.Entities;
 using System.Web.Mvc;
 
 namespace MusicStore.WebUI.Controllers
@@ -13,10 +14,12 @@ namespace MusicStore.WebUI.Controllers
         {
             repo = work;
         }
+
+       
         // GET: Checkout
         public ActionResult AddressAndPayment()
         {
-            return View();
+            return View(new ShippingDetails());
         }
 
         // POST: /Checkout/AddressAndPayment

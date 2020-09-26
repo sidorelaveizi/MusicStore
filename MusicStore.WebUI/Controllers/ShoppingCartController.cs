@@ -1,5 +1,4 @@
 ﻿using MusicStore.Domain.Abstract;
-using MusicStore.Domain.Entities;
 using MusicStore.WebUI.Models;
 using System.Web.Mvc;
 
@@ -14,42 +13,61 @@ namespace MusicStore.WebUI.Controllers
             repo = work;
         }
 
+        //public ActionResult AddCart(int id)
+        //{
+        //    // Retrieve the album from the database
+        //    var addedAlbum = repo.Albums.GetById(id);
+
+        //    // Add it to the shopping cart
+        //    //var cart = ShoppingCart.GetCart(this.HttpContext);
+        //    var cart = repo.Carts.AddItem();
+
+        //    cart.AddToCart(addedAlbum);
+
+        //    // Go back to the main store page for more shopping
+        //    return RedirectToAction("Index");
+        //}
+
         // GET: /ShoppingCart/
         public ActionResult Index()
         {
-            var cart = ShoppingCart.GetCart(this.HttpContext);
+           // var cart = ShoppingCart.GetCart(this.HttpContext);
+            var cart = repo.Carts.GetCart(this.HttpContext);
 
             // Set up our ViewModel
             var viewModel = new ShoppingCartViewModel
             {
-                CartItems = cart.GetCartItems(),
-                CartTotal = cart.GetTotal()
+                
+                CartItems = repo.Carts.GetCartItems(),
+                CartTotal = repo.Carts.GetTotal()
             };
             // Return the view
             return View(viewModel);
         }
         //
         // GET: /Store/AddToCart/5
-        public ActionResult AddToCart(int id)
-        {
-            // Retrieve the album from the database
-            var addedAlbum = repo.Albums.GetById(id);
+    //    public ActionResult AddToCart(int id)
+    //    {
+    //        // Retrieve the album from the database
+    //        var addedAlbum = repo.Albums.GetById(id);
 
-        // Add it to the shopping cart
-        var cart = ShoppingCart.GetCart(this.HttpContext);
+    //    // Add it to the shopping cart
+    //    //var cart = ShoppingCart.GetCart(this.HttpContext);
+    //        var cart = repo.Carts.GetCart(this.HttpContext);
 
-        cart.AddToCart(addedAlbum);
+    //        cart.AddToCart(addedAlbum);
 
-            // Go back to the main store page for more shopping
-            return RedirectToAction("Index");
-    }
+    //        // Go back to the main store page for more shopping
+    //        return RedirectToAction("Index");
+    //}
 
       //  AJAX: /ShoppingCart/RemoveFromCart/5
     //[HttpPost]
     //    public ActionResult RemoveFromCart(int id)
     //    {
     //        // Remove the item from the cart
-    //        var cart = ShoppingCart.GetCart(this.HttpContext);
+    //       // var cart = ShoppingCart.GetCart(this.HttpContext);
+    //        var cart = repo.Carts.GetCart(this.HttpContext);
 
     //        // Get the name of the album to display confirmation
 
@@ -73,13 +91,14 @@ namespace MusicStore.WebUI.Controllers
     //    }
         //
         // GET: /ShoppingCart/CartSummary
-        [ChildActionOnly]
-        public ActionResult CartSummary()
-        {
-            var cart = ShoppingCart.GetCart(this.HttpContext);
+        //[ChildActionOnly]
+        //public ActionResult CartSummary()
+        //{
+        //    // var cart = ShoppingCart.GetCart(this.HttpContext);
+        //    var cart = repo.Carts.GetCart(this.HttpContext);
 
-            ViewData["CartCount"] = cart.GetCount();
-            return PartialView("CartSummary");
-        }
+        //    ViewData["CartCount"] = cart.GetCount();
+        //    return PartialView("CartSummary");
+        //}
     }
 }

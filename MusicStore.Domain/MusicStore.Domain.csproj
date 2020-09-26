@@ -104,7 +104,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\ICartRepository.cs" />
+    <Compile Include="Abstract\IShoppingRepository.cs" />
     <Compile Include="Concrete\AlbumRepository.cs" />
+    <Compile Include="Concrete\CartRepository.cs" />
     <Compile Include="Concrete\GenericRepository.cs" />
     <Compile Include="Concrete\GenreRepository.cs" />
     <Compile Include="Abstract\IAlbumRepository.cs" />
@@ -112,6 +115,7 @@
     <Compile Include="Abstract\IGenreRepository.cs" />
     <Compile Include="Abstract\IUnitOfWork.cs" />
     <Compile Include="Concrete\OrderRepository.cs" />
+    <Compile Include="Concrete\ShoppingRepository.cs" />
     <Compile Include="Concrete\UnitOfWork.cs" />
     <Compile Include="Concrete\ApplicationDbContext.cs" />
     <Compile Include="Concrete\ApplicationDbInitializer.cs" />
@@ -119,9 +123,11 @@
     <Compile Include="Entities\Album.cs" />
     <Compile Include="Entities\Artist.cs" />
     <Compile Include="Entities\Cart.cs" />
+    <Compile Include="Entities\CartLine.cs" />
     <Compile Include="Entities\Genre.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderDetail.cs" />
+    <Compile Include="Entities\ShippingDetails.cs" />
     <Compile Include="Entities\ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
