@@ -4,15 +4,15 @@ namespace MusicStore.Domain.Abstract
 {
     public interface IUnitOfWork : IDisposable
     {
-        
-
         IAlbumRepository Albums { get; }
         IGenreRepository Genres { get; }
+        IArtistRepository Artists { get; }
 
-        IShoppingRepository Carts { get; }
+        IUserRepository Users { get; }
 
         ICartRepository Cart { get; }
-
+        IOrderInterface Orders { get; }
+        IOrderDetailsRepository OrdersDetails { get; }
         int Save();
         
 

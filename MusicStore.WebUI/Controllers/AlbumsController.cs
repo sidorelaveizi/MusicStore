@@ -19,15 +19,8 @@ namespace MusicStore.WebUI.Controllers
         // GET: /Albums/
         public ViewResult Index()
         {
-            var albums = repo.Albums.GetAll();
-            return View(albums.ToList());
-        }
-
-        // GET: /Albums/Details/5
-        public ViewResult Details(int id)
-        {
-            Album album = repo.Albums.GetById(id);
-            return View(album);
+            var albums = repo.Albums.GetAll().ToList();
+            return View(albums);
         }
 
         // GET: /Album/Create
@@ -48,6 +41,9 @@ namespace MusicStore.WebUI.Controllers
                     repo.Save();
                     return RedirectToAction("Index");
                 }
+
+                var genre = repo.Genres.GetAll().ToList();
+                //var artist = repo.Artis
             }
             catch (DataException)
             {
@@ -76,6 +72,10 @@ namespace MusicStore.WebUI.Controllers
                     repo.Save();
                     return RedirectToAction("Index");
                 }
+                else
+                {
+                    return View(album);
+                }
             }
             catch (DataException)
             {
@@ -85,6 +85,7 @@ namespace MusicStore.WebUI.Controllers
         }
 
         // GET: /Album/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             Album album = repo.Albums.GetById(id);
@@ -96,7 +97,7 @@ namespace MusicStore.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-           /* Album album =*/ repo.Albums.GetById(id);
+            //Album album = repo.Albums.GetById(id);
             repo.Albums.Delete(id);
             repo.Save();
             return RedirectToAction("Index");

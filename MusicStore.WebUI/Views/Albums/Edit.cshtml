@@ -1,20 +1,26 @@
 ﻿@model MusicStore.Domain.Entities.Album
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<h1>Edit @Model.Title</h1>
+@*@using (Html.BeginForm())
+    {
+        @Html.EditorForModel()
+        <input type="submit" value="Save" />
+        @Html.ActionLink("Cancel and return to List", "Index")
+    }*@
 
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Album</legend>
+
+        @Html.HiddenFor(model => model.AlbumId)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.GenreId, "Genre")
@@ -57,7 +63,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Save" />
         </p>
     </fieldset>
 }

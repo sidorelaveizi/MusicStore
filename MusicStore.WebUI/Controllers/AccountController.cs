@@ -1,4 +1,4 @@
-﻿
+﻿using MusicStore.Domain.Abstract;
 using MusicStore.Domain.Entities;
 using System;
 using System.Web.Mvc;
@@ -8,6 +8,13 @@ namespace MusicStore.WebUI.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IUnitOfWork repo;
+
+        public AccountController(IUnitOfWork work)
+        {
+
+            repo = work;
+        }
 
         //
         // GET: /Account/LogOn
@@ -17,11 +24,42 @@ namespace MusicStore.WebUI.Controllers
             return View();
         }
 
+        public ActionResult LogIn()
+        {
+            
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogIn(User user)
+        {
+            
+            //if (ModelState.IsValid)
+            //{
+            //    var obj = repo.Users.Where(a => a.UserName.Equals(user.UserName) && a.Password.Equals(user.Password)).FirstOrDefault();
+            //    if (obj != null)
+            //    {
+            //        Session["UserID"] = user.UserID.ToString();
+            //        Session["UserName"] = user.UserName.ToString();
+            //        return RedirectToAction("UserDashBoard");
+            //    }
+            //}
+
+
+            return View(user);
+        }
+
+        public ActionResult SubmitLoginDetails(User register)
+        {
+            
+            return View(register);
+        }
+
         //
         // POST: /Account/LogOn
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        public ActionResult LogOn(Login model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +96,28 @@ namespace MusicStore.WebUI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //register
+        public ActionResult AddOrEdit()
+        {
+            User user = new User();
+            return View(user);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddOrEdit(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                repo.Users.Insert(user);
+                repo.Save();
+                ModelState.Clear();
+                ViewBag.SuccessMessage = "Registration successfully";
+            }
+            
+            //return RedirectToAction("AddressAndPayment", "Checkout");
+            return View("AddOrEdit", new User());
+        }
+
         //
         // GET: /Account/Register
 
@@ -70,7 +130,7 @@ namespace MusicStore.WebUI.Controllers
         // POST: /Account/Register
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(User model)
         {
             if (ModelState.IsValid)
             {

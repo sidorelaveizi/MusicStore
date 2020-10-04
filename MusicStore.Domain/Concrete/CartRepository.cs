@@ -17,12 +17,11 @@ namespace MusicStore.Domain.Concrete
 
         }
        
-
         public void AddItem(Album album, int quantity)
         {
             CartLine line = lineCollection
-.Where(a => a.Albums.AlbumId == album.AlbumId)
-.FirstOrDefault();
+           .Where(a => a.Albums.AlbumId == album.AlbumId)
+           .FirstOrDefault();
             if (line == null)
             {
                 lineCollection.Add(new CartLine
@@ -37,35 +36,7 @@ namespace MusicStore.Domain.Concrete
             }
         }
 
-        //private List<CartLine> lineCollection = new List<CartLine>();
-        //public void AddItem(Album album, int quantity)
-        //{
-        //    List<CartLine> lineCollection = new List<CartLine>();
-        //    CartLine line = lineCollection
-        //    .Where(a => a.Albums.AlbumId == album.AlbumId)
-        //    .FirstOrDefault();
-        //    if (line == null)
-        //    {
-        //        lineCollection.Add(new CartLine
-        //        {
-        //            Albums = album,
-        //            Quantity = quantity
-        //        });
-        //    }
-        //    else
-        //    {
-        //        line.Quantity += quantity;
-        //    }
-        //}
-
-
-
         public void Clear()
-        {
-            throw new NotImplementedException();
-        }
-
-        public decimal ComputeTotalValue()
         {
             throw new NotImplementedException();
         }

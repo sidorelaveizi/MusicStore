@@ -9,8 +9,8 @@
     <em>Review</em> your cart:
 </h3>
 <p class="button">
-    @*@Html.ActionLink("Checkout Now", "AddressAndPayment", "Checkout")*@
-    @Html.ActionLink("Checkout Now", "LogOn", "Account")
+    @Html.ActionLink("Checkout Now", "AddressAndPayment", "Checkout")
+    @*@Html.ActionLink("Checkout Now", "LogOn", "Account")*@
 </p>
 
 <p class="button">
@@ -43,13 +43,13 @@
                 </td>
 
                 <td>
-                    @item.Albums.Price
+                    $@item.Albums.Price
                 </td>
                 <td>@item.Quantity</td>
                 <td><a href="@Url.Action("Remove", "Cart", new { id = item.Albums.AlbumId })">Remove from cart</a></td>
             </tr>
 
-            <tr>
+            @*<tr>
                 <td>
                     Total
                 </td>
@@ -57,16 +57,37 @@
                 </td>
                 <td>
                 </td>
-                <td id="cart-total">
-                    @{
+                <td id="cart-total">*@
+                    @*@{
                         List<CartLine> cart = (List<CartLine>)Session["cart"];
                         var total = cart.Sum(a => a.Albums.Price * a.Quantity);
-                    }
-                    @total
+                    }*@
+                    @*@total*@
                     @*@(item.Albums.Price * item.Quantity)*@
-                </td>
-            </tr>
+                @*</td>
+            </tr>*@
         }
+
+    <tr>
+        <td>
+            Total
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td id="cart-total">
+            @{
+                List<CartLine> cart = (List<CartLine>)Session["cart"];
+                var total = cart.Sum(a => a.Albums.Price * a.Quantity);
+            }
+           $@total
+            @*@(item.Albums.Price * item.Quantity)*@
+        </td>
+    </tr>
+
+
+
         @*<tr>
             <td align="right" colspan="6">Sum</td>
             <td>

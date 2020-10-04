@@ -17,10 +17,9 @@ namespace MusicStore.WebUI.Controllers
 
 
             var albums = repo.Albums.SearchAlbum(searchString);
-           // var albums = repo.Albums.GetAll().ToList();
+            // var albums = repo.Albums.GetAll().ToList();
             //var albums = from a in repo.Albums.SearchAlbum(searchString)
             //            select a;
-
             return View(albums);
         }
 

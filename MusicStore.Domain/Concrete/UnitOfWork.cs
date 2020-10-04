@@ -13,8 +13,11 @@ namespace MusicStore.Domain.Abstract
             Albums = new AlbumRepository(context);
             
             Genres = new GenreRepository(context);
-            Carts = new ShoppingRepository(context);
             Cart = new CartRepository(context);
+            Artists = new ArtistRepository(context);
+            Users = new UserRepository(context);
+            Orders = new OrderRepository(context);
+            OrdersDetails = new OrderDetailsRepository(context);
             
                 
         }
@@ -24,18 +27,31 @@ namespace MusicStore.Domain.Abstract
 
         }
 
+        public IArtistRepository Artists
+        {
+            get; private set;
+
+        }
+
         public ICartRepository Cart
         {
             get; private set;
         }
-        
 
-        public IGenreRepository Genres
+        public IUserRepository Users
         {
             get; private set;
         }
-
-        public IShoppingRepository Carts
+        
+        public IOrderInterface Orders
+        {
+            get; private set;
+        }
+        public IOrderDetailsRepository OrdersDetails
+        {
+            get; private set;
+        }
+        public IGenreRepository Genres
         {
             get; private set;
         }
@@ -47,9 +63,28 @@ namespace MusicStore.Domain.Abstract
 
         public int Save()
         {
-            return context.SaveChanges();
+            //try
+            //{
+                return context.SaveChanges();
+           // }
+            //catch (DbEntityValidationException e)
+            //{
+            //    foreach (var eve in e.EntityValidationErrors)
+            //    {
+            //        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+            //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+            //        foreach (var ve in eve.ValidationErrors)
+            //        {
+            //            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+            //                ve.PropertyName, ve.ErrorMessage);
+            //        }
+            //    }
+            //    throw;
+            //}
+
         }
        
+
 
     }
 }

@@ -7,10 +7,12 @@ namespace MusicStore.WebUI.Models
     {
         
        public Album Albums { get; set; }
-       public IEnumerable<Genre> Genres { get; set; }
+        public IEnumerable<Album> Album { get; set; }
+        public IEnumerable<Genre> Genres { get; set; }
         public Artist Artists { get; set; }
 
-        public Genre Genre { get; set; }
+        public Genre TakeGenres { get; set; }
+
       
 
     }

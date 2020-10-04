@@ -1,0 +1,20 @@
+﻿@model MusicStore.Domain.Entities.Register
+
+@{
+    ViewBag.Title = "SubmitLoginDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 align="center">Welcome</h2>
+<p>Thank you for joinin us @Model.UserName</p>
+<p>Your details are as follows:</p>
+<div>
+    <table>
+        <tr>
+            <td>Your email :</td>
+            <td>@Model.Email</td>
+        </tr>
+        
+    </table>
+</div>
+

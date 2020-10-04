@@ -1,5 +1,4 @@
 ﻿using MusicStore.Domain.Abstract;
-using MusicStore.Domain.Entities;
 using MusicStore.WebUI.Models;
 using System.Web.Mvc;
 
@@ -30,9 +29,19 @@ namespace MusicStore.WebUI.Controllers
         // GET: Albums/Details/2
         public ActionResult Details(int id)
         {
-            Album album = repo.Albums.GetById(id);
 
-            return View(album);
+            var viewModel = new AlbumViewModels()
+            {
+                Albums = repo.Albums.GetById(id),
+                TakeGenres = repo.Genres.GetById(id),
+                Artists=repo.Artists.GetById(id),
+
+                //if (album == null)
+                //{
+                //    return HttpNotFound();
+                //}
+            };
+            return View(viewModel);
         }
 
         //test
