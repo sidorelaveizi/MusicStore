@@ -1,12 +1,15 @@
 ﻿
 using MusicStore.Domain.Abstract;
 using MusicStore.Domain.Entities;
+using MusicStore.WebUI.Models;
+using System.Collections.Generic;
 using System.Data;
-using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace MusicStore.WebUI.Controllers
 {
+    //[Authorize]
     public class AlbumsController : Controller
     {
         private readonly IUnitOfWork repo;
@@ -17,15 +20,21 @@ namespace MusicStore.WebUI.Controllers
         }
 
         // GET: /Albums/
-        public ViewResult Index()
-        {
-            var albums = repo.Albums.GetAll().ToList();
-            return View(albums);
+        public ActionResult Index() {
+           List<AdminViewModel> model = new List<AdminViewModel>();
+
+           //model= repo.Albums.GetAlbums(model);               
+           return View(model);
         }
 
         // GET: /Album/Create
         public ActionResult Create()
         {
+            var genreList = repo.Albums.GetGenres();
+            var artistList = repo.Albums.GetArtist();
+            ViewBag.GenreId = new SelectList(genreList, "GenreId", "Name");
+            ViewBag.ArtistId = new SelectList(artistList, "ArtistId", "Name");
+
             return View();
         }
 
@@ -33,42 +42,41 @@ namespace MusicStore.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Album album)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    repo.Albums.Insert(album);
-                    repo.Save();
-                    return RedirectToAction("Index");
-                }
 
-                var genre = repo.Genres.GetAll().ToList();
-                //var artist = repo.Artis
-            }
-            catch (DataException)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Unable to save changes.");
+                repo.Albums.InsertAlbum(album);
+                repo.Save();
+                return RedirectToAction("Index");
             }
+            var genreList = repo.Albums.GetGenres();
+            var artistList = repo.Albums.GetArtist();
+
+            ViewBag.GenreId = new SelectList(genreList, "GenreId", "Name", album.GenreId);
+            ViewBag.ArtistId = new SelectList(artistList, "ArtistId", "Name", album.ArtistId);
             return View(album);
         }
 
         public ActionResult Edit(int id)
         {
             Album album = repo.Albums.GetById(id);
+            var genreList = repo.Albums.GetGenres();
+            var artistList = repo.Albums.GetArtist();
+
+            ViewBag.GenreId = new SelectList(genreList, "GenreId", "Name", album.GenreId);
+            ViewBag.ArtistId = new SelectList(artistList, "ArtistId", "Name", album.ArtistId);
             return View(album);
         }
+     
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(
-
-           Album album)
+        public ActionResult Edit(Album album)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    repo.Albums.Update(album);
+                    repo.Albums.UpdateAlbum(album);
                     repo.Save();
                     return RedirectToAction("Index");
                 }
@@ -81,26 +89,52 @@ namespace MusicStore.WebUI.Controllers
             {
                 ModelState.AddModelError("", "Unable to save changes.");
             }
+            var genreList = repo.Albums.GetGenres();
+            var artistList = repo.Albums.GetArtist();
+
+            ViewBag.GenreId = new SelectList(genreList, "GenreId", "Name", album.GenreId);
+            ViewBag.ArtistId = new SelectList(artistList, "ArtistId", "Name", album.ArtistId);
             return View(album);
         }
 
         // GET: /Album/Delete/5
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
+            }
             Album album = repo.Albums.GetById(id);
+            if (album == null)
+            {
+                return HttpNotFound();
+            }
             return View(album);
         }
-
+        
         // POST: /Album/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
-            //Album album = repo.Albums.GetById(id);
-            repo.Albums.Delete(id);
-            repo.Save();
-            return RedirectToAction("Index");
+               try
+                {
+                    Album album = repo.Albums.GetById(id);
+                    repo.Albums.DeleteAlbum(id);
+                    repo.Save();
+                }
+                catch (DataException)
+                {
+                    
+                    return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+                }
+                return RedirectToAction("Index");
+          
         }
 
         protected override void Dispose(bool disposing)

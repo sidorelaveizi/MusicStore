@@ -1,4 +1,14 @@
-﻿@model MusicStore.Domain.Entities.Register
+﻿@*@{
+        ViewBag.Title = "LoggedIn";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    @if(Session["UserId"] != null)
+    {
+        <h4>Hello @Session["UserName"].ToString()</h4>
+    }*@
+
+@model MusicStore.Domain.Entities.User
 
 @{
     ViewBag.Title = "SubmitLoginDetails";
@@ -14,7 +24,7 @@
             <td>Your email :</td>
             <td>@Model.Email</td>
         </tr>
-        
+
     </table>
 </div>
 

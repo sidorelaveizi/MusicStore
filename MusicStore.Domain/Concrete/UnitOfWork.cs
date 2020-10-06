@@ -9,17 +9,14 @@ namespace MusicStore.Domain.Abstract
         public UnitOfWork(ApplicationDbContext context)
         {
             this.context = context;
-           
             Albums = new AlbumRepository(context);
-            
             Genres = new GenreRepository(context);
             Cart = new CartRepository(context);
             Artists = new ArtistRepository(context);
             Users = new UserRepository(context);
             Orders = new OrderRepository(context);
             OrdersDetails = new OrderDetailsRepository(context);
-            
-                
+            AuthProvider = new FormsAuthProvider(context);       
         }
         public IAlbumRepository Albums
         {
@@ -55,6 +52,10 @@ namespace MusicStore.Domain.Abstract
         {
             get; private set;
         }
+        public IAuthProvider AuthProvider
+        {
+            get; private set;
+        }
 
         public void Dispose()
         {
@@ -63,25 +64,7 @@ namespace MusicStore.Domain.Abstract
 
         public int Save()
         {
-            //try
-            //{
-                return context.SaveChanges();
-           // }
-            //catch (DbEntityValidationException e)
-            //{
-            //    foreach (var eve in e.EntityValidationErrors)
-            //    {
-            //        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-            //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-            //        foreach (var ve in eve.ValidationErrors)
-            //        {
-            //            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-            //                ve.PropertyName, ve.ErrorMessage);
-            //        }
-            //    }
-            //    throw;
-            //}
-
+                return context.SaveChanges();   
         }
        
 

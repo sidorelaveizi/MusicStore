@@ -1,15 +1,16 @@
-﻿@model IEnumerable<MusicStore.Domain.Entities.Album>
+﻿@*@model IEnumerable<MusicStore.Domain.Entities.Album>*@
+@model MusicStore.WebUI.Models.AlbumViewModels
 @{
     ViewBag.Title = "Browse Albums";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div>
-    
-    @*<h3>
-        <em>@Model</em>Albums
-    </h3>*@
+
+    <h3>
+            @*<em>@Model.TakeGenres.Name</em>Albums*@
+    </h3>
     <ul id="album-list">
-        @foreach (var album in Model)
+        @foreach (var album in Model.Album)
         {
             <li>
                 <a href="@Url.Action("Details", "Store", new { id = album.AlbumId })">

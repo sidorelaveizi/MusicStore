@@ -2,6 +2,7 @@
 using MusicStore.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace MusicStore.Domain.Abstract
@@ -37,27 +38,55 @@ namespace MusicStore.Domain.Abstract
             return albums;
             //return this.Context.Albums.Where(x => x.Title.Contains(searchString));
         }
-
-
-
-        public Genre GetByName(string genre)
+        public void DeleteAlbum(int albumID)
         {
-
-            // Retrieve Genre and its Associated Albums from database
-            var genreModel = _context.Genres.Include("Albums")
-                .Single(g => g.Name == genre);
-
-            return genreModel;
+            Album album = _context.Albums.Find(albumID);
+            _context.Albums.Remove(album);
         }
-        
 
-        //public ApplicationDbContext Context {
-        //    get
+        //public List<AdminViewModel> GetAlbums(List<AdminViewModel> model)
+        //{
+        //    //List<Album> albums = new List<Album>();
+
+        //    var album = GetAllAlbums();
+        //    //albums = _context.Albums.Select(i => i).ToList();
+        //    foreach (var item in album)
         //    {
-        //        return this.context as ApplicationDbContext;
+        //        AdminViewModel avm = new AdminViewModel();
+        //        avm.Title = item.Title;
+        //        avm.AlbumId = item.AlbumId;
+        //        avm.Artist = _context.Artists.Where(i =>i.ArtistId == item.ArtistId)?.FirstOrDefault().Name;
+        //        avm.Genre = _context.Genres.Where(i => i.GenreId == item.GenreId)?.FirstOrDefault().Name;
+        //        model.Add(avm);
+
         //    }
+
+        //    return model;
         //}
 
+        public List<Album> GetAllAlbums()
+        {
+            return _context.Set<Album>().ToList();
+        }
+
+       public List<Genre> GetGenres()
+        {
+
+            return _context.Genres.ToList();
+        }
+        public List<Artist> GetArtist()
+        {
+
+            return _context.Artists.ToList();
+        }
+        public void InsertAlbum(Album album)
+        {
+            _context.Albums.Add(album);
+        }
+       public void UpdateAlbum(Album album)
+        {
+            _context.Entry(album).State = EntityState.Modified;
+        }
 
     }
 }

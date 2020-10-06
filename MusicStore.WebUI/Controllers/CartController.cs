@@ -69,7 +69,7 @@ namespace MusicStore.WebUI.Controllers
             else
             {
                 List<CartLine> cart = (List<CartLine>)Session["cart"];
-                int index = isExist(id);
+                int index = IsExist(id);
                 if (index != -1)
                 {
                     cart[index].Quantity++;
@@ -86,19 +86,16 @@ namespace MusicStore.WebUI.Controllers
 
             //return RedirectToAction("Index");
         }
-
         public ActionResult Remove(int id)
         {
             List<CartLine> cart = (List<CartLine>)Session["cart"];
-            int index = isExist(id);
+            int index = IsExist(id);
             cart.RemoveAt(index);
             Session["cart"] = cart;
-            //return RedirectToAction("Index", "Home");
-            return RedirectToAction("Buy", "Cart");
-
-            // return Redirect("Buy");
+            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Buy", "Cart");
         }
-        private int isExist(int id)
+        private int IsExist(int id)
         {
             List<CartLine> cart = (List<CartLine>)Session["cart"];
             for (int i = 0; i < cart.Count; i++)
@@ -106,11 +103,6 @@ namespace MusicStore.WebUI.Controllers
                     return i;
             return -1;
         }
-        public void Clear()
-        {
-            List<CartLine> cart = new List<CartLine>();
-            cart.Clear();
-        }
-
+       
     }
 }

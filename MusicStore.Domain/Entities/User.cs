@@ -4,6 +4,7 @@ namespace MusicStore.Domain.Entities
 {
     public class User
     { 
+        [Key]
         public int UserID { get; set; }
         [Required]
         [Display(Name = "User Name")]
@@ -22,7 +23,7 @@ namespace MusicStore.Domain.Entities
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 }

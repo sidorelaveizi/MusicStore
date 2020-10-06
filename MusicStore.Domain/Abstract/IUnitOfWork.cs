@@ -13,6 +13,7 @@ namespace MusicStore.Domain.Abstract
         ICartRepository Cart { get; }
         IOrderInterface Orders { get; }
         IOrderDetailsRepository OrdersDetails { get; }
+        IAuthProvider AuthProvider { get; }
         int Save();
         
 

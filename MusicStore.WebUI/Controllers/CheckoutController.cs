@@ -34,8 +34,6 @@ namespace MusicStore.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 List<CartLine> cart = (List<CartLine>)Session["cart"];
-
-                //1. Save the order into Order table
                 Order order = new Order()
                 {
                     FirstName = form["FirstName"],
@@ -49,11 +47,10 @@ namespace MusicStore.WebUI.Controllers
                     Email = form["Email"],
                     OrderDate = DateTime.Now
                 };
-
                 repo.Orders.Insert(order);
                 repo.Save();
 
-                //2. Save the order detail into Order Detail table
+               
                 foreach (CartLine item in cart)
                 {
                     OrderDetail orderDetail = new OrderDetail()
@@ -67,8 +64,6 @@ namespace MusicStore.WebUI.Controllers
                     repo.Save();
                 }
                 Session.Remove("cart");
-
-
             }
 
             //var order = new Order();
@@ -112,8 +107,6 @@ namespace MusicStore.WebUI.Controllers
         {
 
             repo.Orders.isValid(id);
-            
-
             //// Validate customer owns this order
             //bool isValid = repo.Orders.Any(
             //o => o.OrderId == id &&
