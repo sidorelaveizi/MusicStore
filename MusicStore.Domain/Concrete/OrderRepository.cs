@@ -12,24 +12,20 @@ namespace MusicStore.Domain.Concrete
         {
             _context = context;
         }
+
         public IEnumerable<Order> GetOrders()
         {
             return null;
             //return _context.Orders.Where(o => o.Username == User.Identity.Name);
         }
 
-        public bool isValid(int id)
+        public void Complete(int id)
         {
+          
+            // Validate customer owns this order
             bool isValid = _context.Orders.Any(
-            o => o.OrderId == id);
-            if (isValid)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+                o => o.OrderId == id
+               );
 
         }
     }

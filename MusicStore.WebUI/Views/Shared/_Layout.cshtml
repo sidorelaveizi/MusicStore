@@ -19,7 +19,7 @@
             <img src="~/Content/Images/logo.png" />
             <span class="hidden-xs">ASP.NET MVC MUSIC STORE</span>
             @*<div class="visible-xs">ASP.NET</div>
-            <div class="visible-xs">MVC</div>*@
+                <div class="visible-xs">MVC</div>*@
             <div class="visible-xs">MUSIC</div>
             <div class="visible-xs">STORE</div>
         </a>
@@ -30,27 +30,38 @@
             <li class="nav-item">
                 <a class="nav-link" href="/Store/">Store</a>
             </li>
-            @*<li class="nav-item">
-            <a class="nav-link" href="/Cart/Buy/">Cart(0)</a>
-        </li>*@
-            <li><a href="@Url.Content("~/Cart/")">Cart(0)</a></li>
-            @*<li>@{Html.RenderAction("Buy", "Cart");}</li>*@
+
+            <li class="nav-item">
+                <a class="nav-link" href="/Cart/Buy">Cart<span class="badge">@ViewBag.li</span></a>
+                @*@if (Session["cart"] != null)
+                {
+                    foreach (CartLine item in (List<CartLine>)Session["cart"])
+                    {
+                        <a class="nav-link" href="/Cart/">Cart(@item.Quantity)</a>
+
+                    }
+                }*@
+            </li>
             <li><a href="@Url.Content("~/Albums/")">Admin</a></li>
         </ul>
     </nav>
     <span id="header"></span>
 
-    <div class="row panel">
-            <div id="genre" class="col-sm-3 hidden-xs" @*class="col-xs-3"*@>
-                <div>
-                    @{Html.RenderAction("GenreMenu", "Store");}
-                </div>        
-            </div>
-            
+    @*<div class="visible-xs">
+        @Html.Action("GenreMenu", "Store", new { horizontalLayout = true })
+    </div>*@
 
-            <div @*class="col-xs-8"*@ class="col-xs-12 col-sm-8">   
-                @RenderBody()
+    <div class="row panel">
+        <div id="genre" class="col-sm-3 hidden-xs" @*class="col-xs-3"*@>
+            <div>
+                @{Html.RenderAction("GenreMenu", "Store");}
             </div>
+        </div>
+
+
+        <div @*class="col-xs-8"*@ class="col-xs-12 col-sm-8">
+            @RenderBody()
+        </div>
     </div>
 
     <footer id="footer" class="panel-footer">

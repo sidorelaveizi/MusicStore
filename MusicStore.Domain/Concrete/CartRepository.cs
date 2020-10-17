@@ -20,13 +20,13 @@ namespace MusicStore.Domain.Concrete
         public void AddItem(Album album, int quantity)
         {
             CartLine line = lineCollection
-           .Where(a => a.Albums.AlbumId == album.AlbumId)
+           .Where(a => a.Album.AlbumId == album.AlbumId)
            .FirstOrDefault();
             if (line == null)
             {
                 lineCollection.Add(new CartLine
                 {
-                    Albums = album,
+                    Album = album,
                     Quantity = quantity
                 });
             }
@@ -43,7 +43,7 @@ namespace MusicStore.Domain.Concrete
 
         public void RemoveLine(Album album)
         {
-            lineCollection.RemoveAll(a => a.Albums.AlbumId == album.AlbumId);
+            lineCollection.RemoveAll(a => a.Album.AlbumId == album.AlbumId);
         }
     }
 }

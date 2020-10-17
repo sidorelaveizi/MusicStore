@@ -10,7 +10,7 @@
 <p>
     @Html.ActionLink("Create New Album", "Create")
 </p>
-<table class="table">
+<table class="table table-responsive">
     <thead>
         <tr>
             <th></th>
@@ -45,15 +45,6 @@
                 </td>
             </tr>
         }
-        @*<tr>
-            @Html.HiddenFor(model => model.Album.AlbumId)
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = Model.Album.AlbumId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = Model.Album.AlbumId })
-            </td>
-            <td></td>*@
-
-        @*</tr>*@
     </tbody>
 
 </table>

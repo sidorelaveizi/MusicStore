@@ -13,10 +13,9 @@ namespace MusicStore.Domain.Abstract
             Genres = new GenreRepository(context);
             Cart = new CartRepository(context);
             Artists = new ArtistRepository(context);
-            Users = new UserRepository(context);
+            //Users = new UserRepository(context);
             Orders = new OrderRepository(context);
             OrdersDetails = new OrderDetailsRepository(context);
-            AuthProvider = new FormsAuthProvider(context);       
         }
         public IAlbumRepository Albums
         {
@@ -35,10 +34,10 @@ namespace MusicStore.Domain.Abstract
             get; private set;
         }
 
-        public IUserRepository Users
-        {
-            get; private set;
-        }
+        //public IUserRepository Users
+        //{
+        //    get; private set;
+        //}
         
         public IOrderInterface Orders
         {
@@ -52,11 +51,6 @@ namespace MusicStore.Domain.Abstract
         {
             get; private set;
         }
-        public IAuthProvider AuthProvider
-        {
-            get; private set;
-        }
-
         public void Dispose()
         {
             context.Dispose();

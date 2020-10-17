@@ -2,7 +2,8 @@
 {
     public class CartLine
     {
-        public Album Albums { get; set; }
+        
+        public Album Album { get; set; }
         public int Quantity { get; set; }
        
     }

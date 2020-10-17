@@ -97,16 +97,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MusicStore.Domain\MusicStore.Domain.csproj">
-      <Project>{7ec971e1-ea3d-4c40-82b1-5578eeb586de}</Project>
-      <Name>MusicStore.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MusicStore.WebUI\MusicStore.WebUI.csproj">
-      <Project>{9ef5ac29-33c6-4914-a7a1-fe67d318f7db}</Project>
-      <Name>MusicStore.WebUI</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

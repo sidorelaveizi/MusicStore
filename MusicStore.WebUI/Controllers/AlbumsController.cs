@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace MusicStore.WebUI.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = "Administrators")]
     public class AlbumsController : Controller
     {
         private readonly IUnitOfWork repo;
@@ -18,15 +18,32 @@ namespace MusicStore.WebUI.Controllers
         {
             repo = work;
         }
-
         // GET: /Albums/
+        [Authorize]
         public ActionResult Index() {
-           List<AdminViewModel> model = new List<AdminViewModel>();
-
-           //model= repo.Albums.GetAlbums(model);               
-           return View(model);
+            List<AdminViewModel> model = new List<AdminViewModel>();
+            //model = GetAlbums(id);
+            //var list = GetAlbums();
+            model= repo.Albums.GetAlbums(model);               
+            return View(model);
         }
 
+        public List<AdminViewModel> GetAlbums()
+        {
+            List<AdminViewModel> model = new List<AdminViewModel>();
+                var albums = repo.Albums.GetAllAlbums();
+                foreach (var item in albums)
+                {
+                    AdminViewModel avm = new AdminViewModel();
+                    avm.Title = item.Title;
+                    avm.AlbumId = item.AlbumId;
+                    avm.Artist = repo.Albums.GetArtistById(item.ArtistId).Name;
+                    avm.Genre = repo.Albums.GetGenreById(item.GenreId).Name;
+                    model.Add(avm);
+                }
+               return model;
+         }     
+        
         // GET: /Album/Create
         public ActionResult Create()
         {
@@ -42,7 +59,6 @@ namespace MusicStore.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Album album)
         {
-
             if (ModelState.IsValid)
             {
                 repo.Albums.InsertAlbum(album);
@@ -80,6 +96,7 @@ namespace MusicStore.WebUI.Controllers
                     repo.Save();
                     return RedirectToAction("Index");
                 }
+
                 else
                 {
                     return View(album);

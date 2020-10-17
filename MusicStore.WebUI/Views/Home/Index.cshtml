@@ -5,32 +5,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div id="promotion">
+    <img class="img-responsive" src="~/Content/Images/home-showcase.png" />
 </div>
 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-
 {
 
-    <div id="search" class="olContent">
+    @*<div id="search">
+        <div><h2 style="color:black"> Search Album</h2></div>
         <p>
-            Search by Album Tile: @Html.TextBox("SearchString")
+            @Html.TextBox("SearchString")
             <input type="submit" value="Search" />
         </p>
+    </div>*@
+    <div class="olContent f1">
+    <h2 style="color:black">Search Album</h2>
     </div>
-
-}
-<ul id="album-list">
-    @foreach (var album in Model)
-    {
-        <li>
-            <a href="@Url.Action("Details", "Store",
+    <div class="olSearch fr">
+        <input id="btn" type="text" placeholder="Enter Keyword" name="SearchString" class="inputComn houseText form-control" />
+        <div class="searchIcon">
+            <button type="submit" class="searchBtn">
+                <img class="img-responsive" src="~/Content/Images/searchIcon.png" />
+            </button>
+        </div>
+     </div>
+        }
+        <ul id="album-list">
+            @foreach (var album in Model)
+            {
+                <li>
+                    <a href="@Url.Action("Details", "Store",
                 new { id = album.AlbumId })">
 
-                <img alt="@album.Title" src="@album.AlbumArtUrl" />
-                <span>@album.Title</span>
-            </a>
-        </li>
-    }
-</ul>
+                        <img alt="@album.Title" src="@album.AlbumArtUrl" />
+                        <span>@album.Title</span>
+                    </a>
+                </li>
+            }
+        </ul>
 
 
 

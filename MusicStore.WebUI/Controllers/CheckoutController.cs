@@ -1,4 +1,5 @@
-﻿using MusicStore.Domain.Abstract;
+﻿using Microsoft.AspNet.Identity;
+using MusicStore.Domain.Abstract;
 using MusicStore.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Web.Mvc;
 
 namespace MusicStore.WebUI.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = "Users")]
     public class CheckoutController : Controller
     {
         private readonly IUnitOfWork repo;
@@ -57,8 +58,8 @@ namespace MusicStore.WebUI.Controllers
                     {
                         OrderId = order.OrderId,
                         Quantity = item.Quantity,
-                        AlbumId = item.Albums.AlbumId,
-                        UnitPrice = item.Albums.Price
+                        AlbumId = item.Album.AlbumId,
+                        UnitPrice = item.Album.Price
                     };
                     repo.OrdersDetails.Insert(orderDetail);
                     repo.Save();
@@ -103,23 +104,12 @@ namespace MusicStore.WebUI.Controllers
         }
          
             // GET: /Checkout/Complete
-            public ActionResult Complete(int id)
+            public ActionResult CompleteOrder(int id)
         {
-
-            repo.Orders.isValid(id);
-            //// Validate customer owns this order
-            //bool isValid = repo.Orders.Any(
-            //o => o.OrderId == id &&
-            //o.Username == User.Identity.Name);
-            //if (isValid)
-            //{
-            //    return View(id);
-            //}
-            //else
-            //{
-            //    return View("Error");
-            //}
-
+            var userId = User.Identity.GetUserId();
+            // Validate customer owns this order
+            
+            // repo.Orders.isValid(id);
             return View();
         }
     }

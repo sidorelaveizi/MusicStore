@@ -5,9 +5,6 @@
 	border: none;
 }
 
-.olContent {
-	width: 100%;
-}
 
 body {
 	font-family: Arial, Helvetica, sans-serif;
@@ -35,6 +32,7 @@ body {
 	/*float: right;*/
 	margin-bottom: 27px;
 	margin-top: 20px;
+	width:100%;
 	/*text-align:right;*/
 }
 
@@ -58,11 +56,12 @@ body {
 	padding: 45px 0px 5px 0px;
 }
 
-#promotion
-{
-	height: 300px; 
-	width: 700px; 
-	background: url(/content/Images/home-showcase.png) no-repeat;
+#promotion {
+	width: 100%;
+	height: auto;
+	max-height: 300px;
+	max-width: 700px;
+	/*background: url(/content/Images/home-showcase.png) no-repeat;*/
 }
 
 ul li a
@@ -340,4 +339,68 @@ th, td
 tr:hover
 {
 	background-color: #fff;
+	
+}
+
+/* search*/
+
+.olContent {
+	width: 100%;
+}
+#btn {
+	width: 100%;
+}
+
+.olContent h2 {
+	color: #fff;
+	font-size: 15px;
+	padding: 9px 0 0;
+}
+
+.olSearch {
+	width: 100%;
+}
+
+.olSearch .inputComn {
+margin-bottom: 0;
+	}
+
+.inputComn {
+	color: black;
+	font-size: 13px;
+	height: 35px;
+	width: 100%;
+	cursor: pointer;
+	padding: 0 15px;
+}
+
+.searchIcon {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.searchBtn {
+	/*background-color: #005faa;*/
+	background-color: dimgray;
+	border: 0 none;
+	color: #fff;
+	font-size: 12px;
+	padding: 9px 12px;
+	padding-right: 5px;
+	text-transform: uppercase;
+	cursor: pointer;
+	height: 35px;
+	width:45px;
+}
+
+	.searchBtn:hover {
+		background-color: #326987;
+	}
+
+.olSearch {
+	position: relative;
+}
+
+.content {
 }

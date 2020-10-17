@@ -6,6 +6,6 @@ namespace MusicStore.Domain.Abstract
     public interface IOrderInterface : IGenericRepository<Order>
     {
         IEnumerable<Order> GetOrders();
-        bool isValid(int id);
+        void Complete(int id);
     }
 }

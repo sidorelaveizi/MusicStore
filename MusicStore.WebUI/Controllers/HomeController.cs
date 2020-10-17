@@ -6,6 +6,7 @@ namespace MusicStore.WebUI.Controllers
     public class HomeController : Controller
     {
         private readonly IUnitOfWork repo;
+        public int PageSize = 4;
 
         public HomeController(IUnitOfWork work)
         {
@@ -14,8 +15,6 @@ namespace MusicStore.WebUI.Controllers
 
         public ActionResult Index(string searchString)
         {
-
-
             var albums = repo.Albums.SearchAlbum(searchString);
             // var albums = repo.Albums.GetAll().ToList();
             //var albums = from a in repo.Albums.SearchAlbum(searchString)
@@ -23,8 +22,6 @@ namespace MusicStore.WebUI.Controllers
             return View(albums);
         }
 
-
-
-
+       
     }
 }

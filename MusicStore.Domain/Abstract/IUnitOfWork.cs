@@ -8,12 +8,11 @@ namespace MusicStore.Domain.Abstract
         IGenreRepository Genres { get; }
         IArtistRepository Artists { get; }
 
-        IUserRepository Users { get; }
+        //IUserRepository Users { get; }
 
         ICartRepository Cart { get; }
         IOrderInterface Orders { get; }
         IOrderDetailsRepository OrdersDetails { get; }
-        IAuthProvider AuthProvider { get; }
         int Save();
         
 

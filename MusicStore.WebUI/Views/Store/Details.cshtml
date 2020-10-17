@@ -1,16 +1,60 @@
-﻿@*@model MusicStore.Domain.Entities.Album*@
-@model  MusicStore.WebUI.Models.AlbumViewModels
+﻿@model  MusicStore.WebUI.Models.AlbumDetailView
 
 @{
-    ViewBag.Title = "Album - " + Model.Albums.Title;
+    ViewBag.Title = "Album - " + Model.AlbumTitle;
 }
 
-<h2>Album: @Model.Albums.Title</h2>
+<h2>Album: @Model.AlbumTitle</h2>
 <p>
-    <img alt="@Model.Albums.Title"
-         src="@Model.Albums.AlbumArtUrl" />
+    <img alt="@Model.AlbumTitle"
+         src="@Model.AlbumArtUrl" />
 </p>
+
+
 <div id="album-details">
+    <p>
+        <em>Genre:</em>
+        @Model.GenreName
+    </p>
+    <p>
+        <em>Artist:</em>
+        @Model.ArtistName
+    </p>
+    <p>
+        <em>Price:</em>
+        @String.Format("{0:F}",
+Model.Price)
+    </p>
+    <p class="button">
+        @Html.ActionLink("Add to cart", "Buy",
+        "Cart", new { id = Model.Album.AlbumId }, "")
+    </p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@model  MusicStore.WebUI.Models.AlbumViewModels*@
+
+@*@{
+        ViewBag.Title = "Album - " + Model.Albums.Title;
+    }
+
+    <h2>Album: @Model.Albums.Title</h2>
+    <p>
+        <img alt="@Model.Albums.Title"
+             src="@Model.Albums.AlbumArtUrl" />
+    </p>
+    <div id="album-details">
         <p>
             <em>Genre:</em>
             @Model.TakeGenres.Name
@@ -19,18 +63,18 @@
             <em>Artist:</em>
             @Model.Artists.Name
         </p>
-    <p>
-        <em>Price:</em>
-        @String.Format("{0:F}",
-Model.Albums.Price)
-    </p>
-    @*<p class="button">
-            @Html.ActionLink("Add to cart", "AddToCart",
-            "ShoppingCart", new { id = Model.AlbumId }, "")
+        <p>
+            <em>Price:</em>
+            @String.Format("{0:F}",
+    Model.Albums.Price)
+        </p>*@
+@*<p class="button">
+              @Html.ActionLink("Add to cart", "AddToCart",
+              "ShoppingCart", new { id = Model.AlbumId }, "")
     </p>*@
 
-    <p class="button">
-        @Html.ActionLink("Add to cart", "Buy",
-        "Cart", new { id = Model.Albums.AlbumId }, "")
-    </p>
-</div>
+@*<p class="button">
+            @Html.ActionLink("Add to cart", "Buy",
+            "Cart", new { id = Model.Albums.AlbumId }, "")
+        </p>
+    </div>*@

@@ -1,6 +1,7 @@
 ﻿using MusicStore.Domain.Abstract;
 using MusicStore.Domain.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace MusicStore.WebUI.Controllers
@@ -19,51 +20,19 @@ namespace MusicStore.WebUI.Controllers
             return View();
         }
 
-
-        public ActionResult AddToCart(int albumId)
-        {
-            Album albums = repo.Albums.GetById(albumId);
-            if (Session["cart"] == null)
-            {
-                List<CartLine> cart = new List<CartLine>();
-                //var album = repo.Albums.GetById(albumId);
-                cart.Add(new CartLine()
-                {
-                    Albums = albums,
-                    Quantity = 1
-
-                });
-                Session["cart"] = cart;
-            }
-            else
-            {
-                List<CartLine> cart = (List<CartLine>)Session["cart"];
-                var album = repo.Albums.GetById(albumId);
-                cart.Add(new CartLine()
-                {
-                    Albums = album,
-                    Quantity = 1
-
-                });
-                Session["cart"] = cart;
-            }
-
-
-            return View();
-
-        }
-
         public ActionResult Buy(int id)
         {
-            Album albums = repo.Albums.GetById(id);
+            Album album = repo.Albums.GetAlbumById(id);
             if (Session["cart"] == null)
             {
                 List<CartLine> cart = new List<CartLine>();
                 cart.Add(new CartLine
                 {
-                    Albums = albums,
+                    Album = album,
                     Quantity = 1
                 });
+                
+                ViewBag.li = cart.Count();
                 Session["cart"] = cart;
             }
             else
@@ -76,8 +45,9 @@ namespace MusicStore.WebUI.Controllers
                 }
                 else
                 {
-                    cart.Add(new CartLine { Albums = albums, Quantity = 1 });
+                    cart.Add(new CartLine { Album = album, Quantity = 1 });
                 }
+                ViewBag.li = cart.Count();
                 Session["cart"] = cart;
             }
 
@@ -99,10 +69,18 @@ namespace MusicStore.WebUI.Controllers
         {
             List<CartLine> cart = (List<CartLine>)Session["cart"];
             for (int i = 0; i < cart.Count; i++)
-                if (cart[i].Albums.AlbumId.Equals(id))
+                if (cart[i].Album.AlbumId.Equals(id))
                     return i;
             return -1;
         }
-       
+
+        public ActionResult CartSummary(CartLine cart)
+        {
+            
+            return View(cart);
+        }
+
+
+
     }
 }

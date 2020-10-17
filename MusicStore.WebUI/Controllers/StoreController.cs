@@ -27,32 +27,19 @@ namespace MusicStore.WebUI.Controllers
         // GET: Albums/Details/
         public ActionResult Details(int id)
         {
-
-            var viewModel = new AlbumViewModels()
-            {
-                Albums = repo.Albums.GetById(id),
-                TakeGenres = repo.Genres.GetById(id),
-                Artists=repo.Artists.GetById(id),
-            };
-            return View(viewModel);
+           var model = repo.Albums.GetAlbumDetails(id);
+            return View(model);
         }
 
         //
         // GET: /Store/Browse
         public ActionResult Browse(int id)
         {
-
             //Retrieve Genre and its Associated Albums from database
            var viewModel = new AlbumViewModels()
            {
                Album = repo.Albums.GetAlbumsByGenre(id),
            };
-
-           // var albums = repo.Albums.GetAlbumsByGenre(id);
-
-            
-          
-          //};
            
            return View(viewModel);
         }
@@ -61,11 +48,11 @@ namespace MusicStore.WebUI.Controllers
         // GET: /Store/GenreMenu
 
         [ChildActionOnly]
-        public ActionResult GenreMenu()
+        public ActionResult GenreMenu(bool horizontalLayout = false)
         {
             AlbumViewModels model = new AlbumViewModels();
             model.Genres = repo.Genres.GetAll();
-
+           // string viewName = horizontalLayout ? "MenuHorizontal" : "Menu";
             return PartialView(model);
         }
 

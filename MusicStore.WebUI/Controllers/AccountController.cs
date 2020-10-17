@@ -1,127 +1,142 @@
-﻿using MusicStore.Domain.Abstract;
-using MusicStore.Domain.Entities;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using MusicStore.Domain.Abstract;
+using MusicStore.Domain.Concrete;
+using MusicStore.Domain.Infrastructure;
 using MusicStore.WebUI.Models;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace MusicStore.WebUI.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly IUnitOfWork repo;
+        ApplicationDbContext _context = new ApplicationDbContext();
 
         public AccountController(IUnitOfWork work)
         {
-
             repo = work;
         }
 
-
-        IAuthProvider authProvider;
-        public AccountController(IAuthProvider auth)
-        {
-            authProvider = auth;
-        }
-        public ViewResult Login()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                if (authProvider.Authenticate(model.UserName, model.Password))
+            }
+            //if (HttpContext.User.Identity.IsAuthenticated)
+            //{
+            //    return View("Error", new string[] { "Access Denied" });
+            //}
+            ViewBag.returnUrl = returnUrl;
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginModel details, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = await UserManager.FindAsync(details.Name,details.Password);
+                if (user == null)
                 {
-                    return Redirect(returnUrl ?? Url.Action("Index", "Admin"));
+                    ModelState.AddModelError("", "Invalid name or password.");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Incorrect username or password");
-                    return View();
+                    ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user,
+                    DefaultAuthenticationTypes.ApplicationCookie);
+                    AuthManager.SignOut();
+                    AuthManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = false
+                    }, ident);
+                    return Redirect(returnUrl);
                 }
             }
-            else
-            {
-                return View();
-            }
-        }
-        public ActionResult Index()
-        {
-            var list = repo.Users.GetAll();
-            return View(list);
+            ViewBag.returnUrl = returnUrl;
+            return View(details);
         }
 
-        //register
-        [HttpGet]
-        public ActionResult AddOrEdit()
+        public ActionResult Register()
         {
-            //User user = new User();
+            //ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin"))
+            //                             .ToList(), "Name", "Name");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddOrEdit(User user)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                repo.Users.Insert(user);
-                repo.Save();
-                ModelState.Clear();
                
-                ViewBag.SuccessMessage = user.UserName + " " + user.Email + "successfully registered";
+               AppUser user = new AppUser() { UserName = model.UserName, Email = model.Email };
+               var result = await UserManager.CreateAsync(user, model.Password);
+
+                 if (result.Succeeded)
+                {
+                 
+                    UserManager.AddToRole(user.Id, model.UserRoles);
+                    return RedirectToAction("Login", "Account");
+                }
+               
+                else
+                {
+                    ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin"))
+                               .ToList(), "Name", "Name");
+                    ModelState.AddModelError("UserName", "Error while creating the user!");
+                }
+
+
+                //AppUser user = new AppUser();
+
+                //user.UserName = model.UserName;
+                //user.Email = model.Email;
+                //user.PasswordHash = model.Password;
+
+                //IdentityResult result = userManager.Create(user, model.Password);
+
+                //if (result.Succeeded)
+                //{
+                //    userManager.AddToRole(user.Id, "Administrator");
+                //    return RedirectToAction("Login", "Account");
+                //}
+                //else
+                //{
+                //    ModelState.AddModelError("UserName", "Error while creating the user!");
+                //}
+
             }
-
-            //return RedirectToAction("AddressAndPayment", "Checkout");
-            return View(user /*"AddOrEdit", new User()*/);
+            return View(model);
         }
-
-
-        //
-        // GET: /Account/LogIn
-
-     
-
-        public ActionResult LogIn()
+        [Authorize]
+        public ActionResult Logout()
         {
-            
-            return View();
+            AuthManager.SignOut();
+            return RedirectToAction("Index", "Home");
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogIn(User user)
+
+        private IAuthenticationManager AuthManager
         {
-
-            var usr = repo.Users.SingleOrDefault(u => u.UserName == user.UserName);
-            if(user != null)
+            get
             {
-                Session["UserID"] = user.UserID.ToString();
-                Session["UserName"] = user.UserName.ToString();
-
-                return RedirectToAction("LoggedIn");
+                return HttpContext.GetOwinContext().Authentication;
             }
-            else
-            {
-                ModelState.AddModelError("", "UserName or Password is Wrong");
-            }
-            return View();
-                  
         }
-
-        public ActionResult LoggedIn()
+        private AppUserManager UserManager
         {
-            if(Session["UserId"] != null)
+            get
             {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login");
+                return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             }
         }
-
-
-
-
-       
     }
 }
