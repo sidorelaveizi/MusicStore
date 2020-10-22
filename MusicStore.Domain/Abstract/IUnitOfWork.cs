@@ -7,11 +7,8 @@ namespace MusicStore.Domain.Abstract
         IAlbumRepository Albums { get; }
         IGenreRepository Genres { get; }
         IArtistRepository Artists { get; }
-
-        //IUserRepository Users { get; }
-
         ICartRepository Cart { get; }
-        IOrderInterface Orders { get; }
+        IOrderRepository Orders { get; }
         IOrderDetailsRepository OrdersDetails { get; }
         int Save();
         

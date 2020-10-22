@@ -2,10 +2,8 @@
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MusicStore.Domain.Abstract;
-using MusicStore.Domain.Concrete;
 using MusicStore.Domain.Infrastructure;
-using MusicStore.WebUI.Models;
-using System.Linq;
+using MusicStore.Domain.Models;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -17,7 +15,6 @@ namespace MusicStore.WebUI.Controllers
     public class AccountController : Controller
     {
         private readonly IUnitOfWork repo;
-        ApplicationDbContext _context = new ApplicationDbContext();
 
         public AccountController(IUnitOfWork work)
         {
@@ -64,62 +61,81 @@ namespace MusicStore.WebUI.Controllers
             ViewBag.returnUrl = returnUrl;
             return View(details);
         }
-
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
         public ActionResult Register()
         {
-            //ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin"))
-            //                             .ToList(), "Name", "Name");
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+
             if (ModelState.IsValid)
             {
-               
-               AppUser user = new AppUser() { UserName = model.UserName, Email = model.Email };
-               var result = await UserManager.CreateAsync(user, model.Password);
-
-                 if (result.Succeeded)
+                AppUser user = new AppUser
                 {
-                 
-                    UserManager.AddToRole(user.Id, model.UserRoles);
+                    UserName = model.UserName,
+                    Email = model.Email
+                };
+                IdentityResult result = await UserManager.CreateAsync(user,
+                model.Password);
+                if (result.Succeeded)
+                {
+                    UserManager.AddToRole(user.Id, "Users");
                     return RedirectToAction("Login", "Account");
                 }
-               
                 else
                 {
-                    ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin"))
-                               .ToList(), "Name", "Name");
-                    ModelState.AddModelError("UserName", "Error while creating the user!");
+                    AddErrorsFromResult(result);
                 }
-
-
-                //AppUser user = new AppUser();
-
-                //user.UserName = model.UserName;
-                //user.Email = model.Email;
-                //user.PasswordHash = model.Password;
-
-                //IdentityResult result = userManager.Create(user, model.Password);
-
-                //if (result.Succeeded)
-                //{
-                //    userManager.AddToRole(user.Id, "Administrator");
-                //    return RedirectToAction("Login", "Account");
-                //}
-                //else
-                //{
-                //    ModelState.AddModelError("UserName", "Error while creating the user!");
-                //}
-
             }
             return View(model);
         }
+
+        private void AddErrorsFromResult(IdentityResult result)
+        {
+            foreach (string error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //[Authorize]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ChangePassword(ChangePassword model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        AppUser user = AppUser.FindByName(HttpContext.User.Identity.Name);
+        //        IdentityResult result = UserManager.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
+        //        if (result.Succeeded)
+        //        {
+        //            IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+        //            authenticationManager.SignOut();
+        //            return RedirectToAction("Login", "Account");
+        //        }
+        //        else
+        //        {
+        //            ModelState.AddModelError("", "Error while changing the password.");
+        //        }
+        //    }
+        //    return View(model);
+        //}
         [Authorize]
         public ActionResult Logout()
         {
+
             AuthManager.SignOut();
             return RedirectToAction("Index", "Home");
         }

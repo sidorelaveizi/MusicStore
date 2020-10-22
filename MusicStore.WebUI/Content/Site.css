@@ -4,6 +4,10 @@
 	padding: 0px;
 	border: none;
 }
+#roles {
+	margin-top:40px;
+	margin-bottom:35px;
+}
 
 
 body {
@@ -17,9 +21,12 @@ body {
 {
 	float: left;
 }
+fieldset {
+	min-width: 100%;
+}
 
-#header
-{
+
+#header {
 	float: left;
 	width: 100%;
 	border-bottom: 1px dotted #5D5A53;

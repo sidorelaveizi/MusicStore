@@ -1,7 +1,10 @@
-﻿@using MusicStore.WebUI.Models
+﻿@using MusicStore.Domain.Models
 @using MusicStore.Domain.Infrastructure
 @model RoleEditModel
-@{ ViewBag.Title = "Edit Role";}
+@{ ViewBag.Title = "Edit Role";
+   Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
 @Html.ValidationSummary()
 @using (Html.BeginForm())
 {

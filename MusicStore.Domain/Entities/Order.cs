@@ -12,7 +12,6 @@ namespace MusicStore.Domain.Entities
         [ScaffoldColumn(false)]
         public int OrderId { get; set; }
         [ScaffoldColumn(false)]
-        //[Required(ErrorMessage = "Please provide username", AllowEmptyStrings = false)]
         public string Username { get; set; }
         [Required(ErrorMessage = "First Name is required")]
         [DisplayName("First Name")]

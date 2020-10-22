@@ -1,5 +1,5 @@
 ﻿using MusicStore.Domain.Entities;
-using MusicStore.WebUI.Models;
+using MusicStore.Domain.Models;
 using System.Collections.Generic;
 //using MusicStore.WebUI.Models;
 

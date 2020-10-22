@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace MusicStore.WebUI.Models
+namespace MusicStore.Domain.Models
 {
     public class CreateModel
     {
@@ -43,9 +43,6 @@ namespace MusicStore.WebUI.Models
 
     public class RegisterViewModel
     {
-        [Required]
-        [Display(Name = "UserRoles")]
-        public string UserRoles { get; set; }
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }

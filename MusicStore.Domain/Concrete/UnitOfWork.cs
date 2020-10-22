@@ -4,7 +4,6 @@ namespace MusicStore.Domain.Abstract
 {
     public class UnitOfWork : IUnitOfWork
     {
-        //private readonly DbContext context;
         private readonly ApplicationDbContext context;
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -13,7 +12,6 @@ namespace MusicStore.Domain.Abstract
             Genres = new GenreRepository(context);
             Cart = new CartRepository(context);
             Artists = new ArtistRepository(context);
-            //Users = new UserRepository(context);
             Orders = new OrderRepository(context);
             OrdersDetails = new OrderDetailsRepository(context);
         }
@@ -34,12 +32,7 @@ namespace MusicStore.Domain.Abstract
             get; private set;
         }
 
-        //public IUserRepository Users
-        //{
-        //    get; private set;
-        //}
-        
-        public IOrderInterface Orders
+        public IOrderRepository Orders
         {
             get; private set;
         }

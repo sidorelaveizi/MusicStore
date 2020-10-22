@@ -1,5 +1,7 @@
 ﻿@model string
-@{ ViewBag.Title = "Create Role";}
+@{ ViewBag.Title = "Create Role";
+   Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
 <h2>Create Role</h2>
 @Html.ValidationSummary(false)
 @using (Html.BeginForm())

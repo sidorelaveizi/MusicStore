@@ -140,7 +140,7 @@
     <Compile Include="Abstract\IArtistRepository.cs" />
     <Compile Include="Abstract\ICartRepository.cs" />
     <Compile Include="Abstract\IOrderDetailsRepository.cs" />
-    <Compile Include="Abstract\IOrderInterface.cs" />
+    <Compile Include="Abstract\IOrderRepository.cs" />
     <Compile Include="Concrete\AlbumRepository.cs" />
     <Compile Include="Concrete\ArtistRepository.cs" />
     <Compile Include="Concrete\CartRepository.cs" />
@@ -170,7 +170,7 @@
     <Compile Include="Infrastructure\IdentityHelpers.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\AlbumDetailView.cs" />
-    <Compile Include="Models\AlbumListViewModel.cs" />
+    <Compile Include="Models\AlbumViewModels.cs" />
     <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

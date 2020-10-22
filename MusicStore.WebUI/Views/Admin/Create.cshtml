@@ -1,5 +1,7 @@
-﻿@model MusicStore.WebUI.Models.CreateModel
-@{ ViewBag.Title = "Create User";}
+﻿@model MusicStore.Domain.Models.CreateModel
+@{ ViewBag.Title = "Create User";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+ }
 <h2>Create User</h2>
 @Html.ValidationSummary(false)
 @using (Html.BeginForm())

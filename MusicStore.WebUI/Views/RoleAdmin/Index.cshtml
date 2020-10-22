@@ -1,7 +1,9 @@
 ﻿@using MusicStore.Domain.Infrastructure
 @model IEnumerable<AppRole>
-@{ ViewBag.Title = "Roles"; }
-<div class="panel panel-primary">
+@{ ViewBag.Title = "Roles";
+   Layout = "~/Views/Shared/_AdminLayout.cshtml";
+ }
+<div class="panel panel-primary" id="roles">
     <div class="panel-heading">Roles</div>
     <table class="table table-striped">
         <tr><th>ID</th><th>Name</th><th>Users</th><th></th></tr>

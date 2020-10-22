@@ -1,5 +1,5 @@
 ﻿using MusicStore.Domain.Abstract;
-using MusicStore.WebUI.Models;
+using MusicStore.Domain.Models;
 using System.Web.Mvc;
 
 
@@ -35,10 +35,11 @@ namespace MusicStore.WebUI.Controllers
         // GET: /Store/Browse
         public ActionResult Browse(int id)
         {
-            //Retrieve Genre and its Associated Albums from database
+            //Retrieve Genre and its Associated Albums
            var viewModel = new AlbumViewModels()
            {
-               Album = repo.Albums.GetAlbumsByGenre(id),
+               Albums = repo.Albums.GetAlbumsByGenre(id),
+               GenreName = repo.Albums.GetGenreById(id).Name
            };
            
            return View(viewModel);
@@ -48,11 +49,11 @@ namespace MusicStore.WebUI.Controllers
         // GET: /Store/GenreMenu
 
         [ChildActionOnly]
-        public ActionResult GenreMenu(bool horizontalLayout = false)
+        public ActionResult GenreMenu(string category = null, bool horizontalLayout = false)
         {
+            //ViewBag.SelectedCategory = category;
             AlbumViewModels model = new AlbumViewModels();
             model.Genres = repo.Genres.GetAll();
-           // string viewName = horizontalLayout ? "MenuHorizontal" : "Menu";
             return PartialView(model);
         }
 

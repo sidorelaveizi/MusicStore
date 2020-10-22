@@ -17,11 +17,6 @@ namespace MusicStore.WebUI.Controllers
         {
             repo = work;
         }
-        // GET: /Checkout/AddressAndPayment
-        //public ActionResult AddressAndPayment()
-        //{
-        //    return View(new ShippingDetails());
-        //}
         public ActionResult AddressAndPayment()
         {
             return View("AddressAndPayment");

@@ -4,6 +4,7 @@ using Microsoft.Owin;
 using MusicStore.Domain.Concrete;
 using MusicStore.Domain.Infrastructure;
 using Owin;
+using System;
 
 [assembly: OwinStartup(typeof(MusicStore.WebUI.Startup))]
 
@@ -13,11 +14,17 @@ namespace MusicStore.WebUI
     {
         public void Configuration(IAppBuilder app)
         {
-           
-            createRolesandUsers();
+            ConfigureAuth(app);
+            CreateRolesandUsers();
            
         }
-        private void createRolesandUsers()
+
+        private void ConfigureAuth(IAppBuilder app)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CreateRolesandUsers()
         {
             ApplicationDbContext context = new ApplicationDbContext();
 
@@ -26,19 +33,19 @@ namespace MusicStore.WebUI
 
 
             // In Startup iam creating first Admin Role and creating a default Admin User     
-            if (!roleManager.RoleExists("Admin"))
+            if (!roleManager.RoleExists("SuperAdmin"))
             {
 
                 // first we create Admin rool    
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Admin";
+                role.Name = "SuperAdmin";
                 roleManager.Create(role);
 
                 //Here we create a Admin super user who will maintain the website                   
 
                 var user = new AppUser();
-                user.UserName = "shanu";
-                user.Email = "syedshanumcain@gmail.com";
+                user.UserName = "sido";
+                user.Email = "sido@gmail.com";
 
                 string userPWD = "A@Z200711";
 
@@ -47,7 +54,7 @@ namespace MusicStore.WebUI
                 //Add default User to Role Admin    
                 if (chkUser.Succeeded)
                 {
-                    var result1 = UserManager.AddToRole(user.Id, "Admin");
+                    var result1 = UserManager.AddToRole(user.Id, "SuperAdmin");
 
                 }
             }

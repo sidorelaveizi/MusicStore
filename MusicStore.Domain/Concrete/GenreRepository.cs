@@ -14,18 +14,8 @@ namespace MusicStore.Domain.Abstract
         public IEnumerable<Album> GetAlbum(int GenreId)
         {
           return _context.Genres.Find(GenreId).Albums;
-           
-            //var data = this.Context.Albums;
-            //return null;
-
 
         }
-        //public ApplicationDbContext Context
-        //{
-        //    get
-        //    {
-        //        return this.context as ApplicationDbContext;
-        //    }
-        //}
+       
     }
 }

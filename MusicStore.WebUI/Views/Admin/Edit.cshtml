@@ -1,5 +1,7 @@
 ﻿@model MusicStore.Domain.Infrastructure.AppUser
-@{ ViewBag.Title = "Edit"; }
+@{ ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+ }
 @Html.ValidationSummary(false)
 <h2>Edit User</h2>
 <div class="form-group">

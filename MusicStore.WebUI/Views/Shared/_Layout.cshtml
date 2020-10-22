@@ -32,9 +32,10 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/Cart/Buy">Cart<span class="badge">@ViewBag.li</span></a>
+                <a class="nav-link" href="/Cart/Buy">Cart <span @*class="badge"*@>@ViewBag.count</span></a>
                 @*@if (Session["cart"] != null)
                 {
+
                     foreach (CartLine item in (List<CartLine>)Session["cart"])
                     {
                         <a class="nav-link" href="/Cart/">Cart(@item.Quantity)</a>
@@ -46,10 +47,6 @@
         </ul>
     </nav>
     <span id="header"></span>
-
-    @*<div class="visible-xs">
-        @Html.Action("GenreMenu", "Store", new { horizontalLayout = true })
-    </div>*@
 
     <div class="row panel">
         <div id="genre" class="col-sm-3 hidden-xs" @*class="col-xs-3"*@>

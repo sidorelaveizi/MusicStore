@@ -1,12 +1,14 @@
-﻿@model MusicStore.WebUI.Models.AlbumViewModels
+﻿@model MusicStore.Domain.Models.AlbumViewModels
 
-<ul id="categories">
-    @foreach (var genre in Model.Genres)
-    {
+    <ul id="categories">
+        @foreach (var genre in Model.Genres)
+        {
         <li>
             @Html.ActionLink(genre.Name,
             "Browse",
             new { id = genre.GenreId })
+            @*@(genre == ViewBag.SelectedCategory ? " btn-primary" : "")*@
         </li>
-    }
-</ul>
+            
+        }
+    </ul>

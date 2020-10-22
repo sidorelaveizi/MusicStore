@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using MusicStore.Domain.Infrastructure;
-using MusicStore.WebUI.Models;
+using MusicStore.Domain.Models;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MusicStore.WebUI.Controllers
 {
-    [Authorize(Roles = "Administrators")]
+
     public class AdminController : Controller
     {
         public ActionResult Index()
@@ -33,6 +33,7 @@ namespace MusicStore.WebUI.Controllers
                 model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "Users");
                     return RedirectToAction("Index");
                 }
                 else
@@ -132,8 +133,6 @@ namespace MusicStore.WebUI.Controllers
                 ModelState.AddModelError("", error);
             }
         }
-
-
 
         private AppUserManager UserManager
         {

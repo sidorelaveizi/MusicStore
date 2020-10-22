@@ -1,7 +1,6 @@
-﻿
-using MusicStore.Domain.Abstract;
+﻿using MusicStore.Domain.Abstract;
 using MusicStore.Domain.Entities;
-using MusicStore.WebUI.Models;
+using MusicStore.Domain.Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Net;
@@ -22,9 +21,7 @@ namespace MusicStore.WebUI.Controllers
         [Authorize]
         public ActionResult Index() {
             List<AdminViewModel> model = new List<AdminViewModel>();
-            //model = GetAlbums(id);
-            //var list = GetAlbums();
-            model= repo.Albums.GetAlbums(model);               
+            model = repo.Albums.GetAlbums(model);             
             return View(model);
         }
 

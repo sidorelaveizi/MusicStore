@@ -1,6 +1,6 @@
 ﻿using MusicStore.Domain.Concrete;
 using MusicStore.Domain.Entities;
-using MusicStore.WebUI.Models;
+using MusicStore.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

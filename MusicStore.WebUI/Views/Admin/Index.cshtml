@@ -2,8 +2,9 @@
 @model IEnumerable<AppUser>
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<div class="panel panel-primary">
+<div class="panel panel-primary" id="roles">
     <div class="panel-heading">
         User Accounts
     </div>

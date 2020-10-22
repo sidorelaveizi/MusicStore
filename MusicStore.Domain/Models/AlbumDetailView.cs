@@ -1,6 +1,6 @@
 ﻿using MusicStore.Domain.Entities;
 
-namespace MusicStore.WebUI.Models
+namespace MusicStore.Domain.Models
 {
     public class AlbumDetailView
     {

@@ -1,8 +1,6 @@
 ﻿using MusicStore.Domain.Abstract;
 using MusicStore.Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MusicStore.Domain.Concrete
 {
@@ -17,33 +15,33 @@ namespace MusicStore.Domain.Concrete
 
         }
        
-        public void AddItem(Album album, int quantity)
-        {
-            CartLine line = lineCollection
-           .Where(a => a.Album.AlbumId == album.AlbumId)
-           .FirstOrDefault();
-            if (line == null)
-            {
-                lineCollection.Add(new CartLine
-                {
-                    Album = album,
-                    Quantity = quantity
-                });
-            }
-            else
-            {
-                line.Quantity += quantity;
-            }
-        }
+        //public void AddItem(Album album, int quantity)
+        //{
+        //    CartLine line = lineCollection
+        //   .Where(a => a.Album.AlbumId == album.AlbumId)
+        //   .FirstOrDefault();
+        //    if (line == null)
+        //    {
+        //        lineCollection.Add(new CartLine
+        //        {
+        //            Album = album,
+        //            Quantity = quantity
+        //        });
+        //    }
+        //    else
+        //    {
+        //        line.Quantity += quantity;
+        //    }
+        //}
 
-        public void Clear()
-        {
-            throw new NotImplementedException();
-        }
+        //public void Clear()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void RemoveLine(Album album)
-        {
-            lineCollection.RemoveAll(a => a.Album.AlbumId == album.AlbumId);
-        }
+        //public void RemoveLine(Album album)
+        //{
+        //    lineCollection.RemoveAll(a => a.Album.AlbumId == album.AlbumId);
+        //}
     }
 }

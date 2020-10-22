@@ -16,13 +16,14 @@ namespace MusicStore.WebUI.Controllers
         }
 
         public ActionResult Index()
-        {
+        {        
             return View();
         }
 
         public ActionResult Buy(int id)
         {
             Album album = repo.Albums.GetAlbumById(id);
+
             if (Session["cart"] == null)
             {
                 List<CartLine> cart = new List<CartLine>();
@@ -32,7 +33,7 @@ namespace MusicStore.WebUI.Controllers
                     Quantity = 1
                 });
                 
-                ViewBag.li = cart.Count();
+                ViewBag.count = cart.Count();
                 Session["cart"] = cart;
             }
             else
@@ -47,7 +48,7 @@ namespace MusicStore.WebUI.Controllers
                 {
                     cart.Add(new CartLine { Album = album, Quantity = 1 });
                 }
-                ViewBag.li = cart.Count();
+                ViewBag.count = cart.Count();
                 Session["cart"] = cart;
             }
 
