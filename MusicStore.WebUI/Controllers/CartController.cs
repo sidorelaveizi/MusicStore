@@ -20,16 +20,19 @@ namespace MusicStore.WebUI.Controllers
             return View();
         }
 
-        public ActionResult Buy(int id)
+        public ActionResult Buy(int? id)
         {
-            Album album = repo.Albums.GetAlbumById(id);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
 
             if (Session["cart"] == null)
             {
                 List<CartLine> cart = new List<CartLine>();
                 cart.Add(new CartLine
                 {
-                    Album = album,
+                    Album = repo.Albums.GetById(id),
                     Quantity = 1
                 });
                 
@@ -46,27 +49,27 @@ namespace MusicStore.WebUI.Controllers
                 }
                 else
                 {
-                    cart.Add(new CartLine { Album = album, Quantity = 1 });
+                    cart.Add(new CartLine { Album = repo.Albums.GetById(id), Quantity = 1 });
                 }
                 ViewBag.count = cart.Count();
                 Session["cart"] = cart;
             }
 
-            return View();
-
-
-            //return RedirectToAction("Index");
+            return View("Index");
         }
-        public ActionResult Remove(int id)
+        public ActionResult Remove(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
             List<CartLine> cart = (List<CartLine>)Session["cart"];
             int index = IsExist(id);
             cart.RemoveAt(index);
             Session["cart"] = cart;
-            return RedirectToAction("Index", "Home");
-            //return RedirectToAction("Buy", "Cart");
+            return RedirectToAction("Index", "Cart");
         }
-        private int IsExist(int id)
+        private int IsExist(int? id)
         {
             List<CartLine> cart = (List<CartLine>)Session["cart"];
             for (int i = 0; i < cart.Count; i++)

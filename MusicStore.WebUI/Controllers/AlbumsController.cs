@@ -25,22 +25,6 @@ namespace MusicStore.WebUI.Controllers
             return View(model);
         }
 
-        public List<AdminViewModel> GetAlbums()
-        {
-            List<AdminViewModel> model = new List<AdminViewModel>();
-                var albums = repo.Albums.GetAllAlbums();
-                foreach (var item in albums)
-                {
-                    AdminViewModel avm = new AdminViewModel();
-                    avm.Title = item.Title;
-                    avm.AlbumId = item.AlbumId;
-                    avm.Artist = repo.Albums.GetArtistById(item.ArtistId).Name;
-                    avm.Genre = repo.Albums.GetGenreById(item.GenreId).Name;
-                    model.Add(avm);
-                }
-               return model;
-         }     
-        
         // GET: /Album/Create
         public ActionResult Create()
         {

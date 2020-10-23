@@ -30,20 +30,26 @@
             <li class="nav-item">
                 <a class="nav-link" href="/Store/">Store</a>
             </li>
+            <li><a href="@Url.Content("~/Cart/")">Cart <span>@ViewBag.count</span></a></li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/Cart/Buy">Cart <span @*class="badge"*@>@ViewBag.count</span></a>
-                @*@if (Session["cart"] != null)
-                {
+            @*<li class="nav-item">
+            <a class="nav-link" href="/Cart/Index">Cart <span>@ViewBag.count</span></a>
+            @if (Session["cart"] != null)
+                        {
+                            List<CartLine> temp = (List<CartLine>) Session["cart"];
 
-                    foreach (CartLine item in (List<CartLine>)Session["cart"])
-                    {
-                        <a class="nav-link" href="/Cart/">Cart(@item.Quantity)</a>
+                            foreach (CartLine item in (List<CartLine>)Session["cart"])
+                            {
+                <a class="nav-link" href="/Cart/">Cart(@item.Quantity)</a>
 
-                    }
-                }*@
+            }
+            }
+        </li>*@
+            @*<li><a href="@Url.Content("~/Albums/")">Admin</a></li>*@
+            <li>
+                
+                @Html.ActionLink("Admin", "Login", "Account", new { isAdmin = true }, null)
             </li>
-            <li><a href="@Url.Content("~/Albums/")">Admin</a></li>
         </ul>
     </nav>
     <span id="header"></span>

@@ -3,34 +3,72 @@
 @{
     ViewBag.Title = "Log On";
 }
-
 <h2>Log On</h2>
-<p>
-    Please enter your user name and password. @Html.ActionLink("Register", "Register") if you don't have an account.
-</p>
-@Html.ValidationSummary()
-@using (Html.BeginForm())
+@if (ViewBag.isAdmin)
 {
-    <div>
-        <fieldset>
-            <legend>Account Information</legend>
-            @Html.AntiForgeryToken()
-            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
-            <div class="form-group">
-                <label>Name</label>
-                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
-            </div>
+    @Html.ValidationSummary()
+    using (Html.BeginForm())
+    {
+        <div>
+            <fieldset>
+                <legend>Account Information</legend>
+                @Html.AntiForgeryToken()
 
-            <div class="editor-label">
-                @Html.CheckBoxFor(x => x.RememberMe)
-                @Html.LabelFor(x => x.RememberMe)
-            </div>
-            <button class="btn btn-primary" type="submit">Log In</button>
+                @*@if (User.IsInRole("Administrators"))
+        {
 
-        </fieldset>
-    </div>
+
+        }*@
+                <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+                <div class="form-group">
+                    <label>Name</label>
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+                </div>
+
+                <div class="editor-label">
+                    @Html.CheckBoxFor(x => x.RememberMe)
+                    @Html.LabelFor(x => x.RememberMe)
+                </div>
+                <button class="btn btn-primary" type="submit">Log In</button>
+
+            </fieldset>
+        </div>
+    }
+}
+else
+{
+    <p>
+        Please enter your user name and password. @Html.ActionLink("Register", "Register") if you don't have an account.
+    </p>
+    @Html.ValidationSummary()
+    using (Html.BeginForm())
+    {
+        <div>
+            <fieldset>
+                <legend>Account Information</legend>
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+                <div class="form-group">
+                    <label>Name</label>
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+                </div>
+
+                <div class="editor-label">
+                    @Html.CheckBoxFor(x => x.RememberMe)
+                    @Html.LabelFor(x => x.RememberMe)
+                </div>
+                <button class="btn btn-primary" type="submit">Log In</button>
+
+            </fieldset>
+        </div>
+    }
+
 }

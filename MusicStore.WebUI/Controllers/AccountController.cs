@@ -22,17 +22,31 @@ namespace MusicStore.WebUI.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl, bool isAdmin=false)
         {
             if (ModelState.IsValid)
             {
+                if (HttpContext.User.Identity.IsAuthenticated && User.IsInRole("Administrators"))
+                {
+                    return RedirectToAction("Index", "Albums");
+                   
+                }
+                ViewBag.isAdmin = false;
+
+                if (isAdmin)
+                {
+                    ViewBag.isAdmin = isAdmin;
+
+                }
+
+                ViewBag.returnUrl = returnUrl;
+                return View();
             }
-            //if (HttpContext.User.Identity.IsAuthenticated)
-            //{
-            //    return View("Error", new string[] { "Access Denied" });
-            //}
-            ViewBag.returnUrl = returnUrl;
-            return View();
+            else
+            {
+                return View();
+            }
+            
         }
         [HttpPost]
         [AllowAnonymous]
@@ -55,7 +69,17 @@ namespace MusicStore.WebUI.Controllers
                     {
                         IsPersistent = false
                     }, ident);
-                    return Redirect(returnUrl);
+                    if (User.IsInRole("Administrators"))
+                    {
+                        return RedirectToAction("Index", "Albums");
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddressAndPayment", "Checkout");
+                    }
+
+                   
+                   
                 }
             }
             ViewBag.returnUrl = returnUrl;
