@@ -67,7 +67,8 @@ namespace MusicStore.WebUI.Controllers
                     AuthManager.SignOut();
                     AuthManager.SignIn(new AuthenticationProperties
                     {
-                        IsPersistent = false
+                        //IsPersistent = false
+                        IsPersistent = details.RememberMe
                     }, ident);
                     if (User.IsInRole("Administrators"))
                     {
@@ -127,35 +128,6 @@ namespace MusicStore.WebUI.Controllers
                 ModelState.AddModelError("", error);
             }
         }
-
-        [Authorize]
-        public ActionResult ChangePassword()
-        {
-            return View();
-        }
-
-        //[HttpPost]
-        //[Authorize]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult ChangePassword(ChangePassword model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        AppUser user = AppUser.FindByName(HttpContext.User.Identity.Name);
-        //        IdentityResult result = UserManager.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
-        //        if (result.Succeeded)
-        //        {
-        //            IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
-        //            authenticationManager.SignOut();
-        //            return RedirectToAction("Login", "Account");
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", "Error while changing the password.");
-        //        }
-        //    }
-        //    return View(model);
-        //}
         [Authorize]
         public ActionResult Logout()
         {

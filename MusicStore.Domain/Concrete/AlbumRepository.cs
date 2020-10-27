@@ -1,6 +1,7 @@
 ﻿using MusicStore.Domain.Concrete;
 using MusicStore.Domain.Entities;
 using MusicStore.Domain.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,7 +12,6 @@ namespace MusicStore.Domain.Abstract
     public class AlbumRepository : GenericRepository<Album>, IAlbumRepository
     {
         private readonly ApplicationDbContext _context;
-        public int PageSize = 4;
         public AlbumRepository(ApplicationDbContext context) 
         {
             _context = context;
@@ -26,15 +26,16 @@ namespace MusicStore.Domain.Abstract
             return albums;
         }
 
-         // GET: SearchFunctionality
-        public IEnumerable<Album> SearchAlbum(string searchString)
+         // GET: SearchFunctionality and pagination
+        public IEnumerable<Album> SearchAlbum(string searchString, int? page)
         {
-            var albums = from a in _context.Albums
-                         select a;
+            var pageNumber = page ?? 1;
+            var pageSize = 18;
 
+            var albums = GetAllAlbums().ToPagedList(pageNumber, pageSize);
             if (!String.IsNullOrEmpty(searchString))
             {
-                albums = albums.Where(a => a.Title.Contains(searchString));
+                albums = (IPagedList<Album>)albums.Where(a => a.Title.Contains(searchString));
             }
             return albums;
         }
@@ -42,39 +43,7 @@ namespace MusicStore.Domain.Abstract
         {
             Album album = _context.Albums.Find(albumID);
             _context.Albums.Remove(album);
-        }
-
-        //        public AlbumListViewModel Paging(int page = 1)
-        //        {
-        //           int PageSize = 4;
-        //            AlbumListViewModel model = new AlbumListViewModel
-        //            {
-        //                Albums = _context.Albums
-        //.OrderBy(p => p.AlbumId)
-        //.Skip((page - 1) * PageSize)
-        //.Take(PageSize),
-
-        //                int maxRows = 10;
-
-        //            AlbumListViewModel customerModel = new AlbumListViewModel();
-        //            List<Album> albums = new List<Album>();
-
-        //            customerModel.Albums = (from album in albums
-        //                                    select albums)
-        //                            .OrderBy(album => albums).
-        //                            .Skip((page - 1) * maxRows)
-        //                            .Take(maxRows).ToList();
-
-        //            double pageCount = (double)((decimal)entities.Customers.Count() / Convert.ToDecimal(maxRows));
-        //            customerModel.PageCount = (int)Math.Ceiling(pageCount);
-
-        //            customerModel.CurrentPageIndex = page;
-
-        //            return customerModel;
-        //        }
-
-
-
+        }      
         public List<AdminViewModel> GetAlbums(List<AdminViewModel> model)
         {
             var album = GetAllAlbums();

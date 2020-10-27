@@ -14,24 +14,28 @@
 </head>
 <body>
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/"  id="app-name">
             <img src="~/Content/Images/logo.png" />
-            <span class="hidden-xs">ASP.NET MVC MUSIC STORE</span>
+            <span class="hidden-xs">ONLINE MUSIC STORE</span>
             @*<div class="visible-xs">ASP.NET</div>
                 <div class="visible-xs">MVC</div>*@
             <div class="visible-xs">MUSIC</div>
             <div class="visible-xs">STORE</div>
         </a>
         <ul class="nav justify-content-end" id="navlist">
-            <li class="nav-item">
+            @*<li class="nav-item">
                 <a class="nav-link active" href="/">Home</a>
-            </li>
-            <li><a href="@Url.Content("~/RoleAdmin/")">Roles</a></li>
-            <li><a href="@Url.Content("~/Admin/")">Users</a></li>
+            </li>*@
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("Roles", "Index", "RoleAdmin")</li>
+            <li>@Html.ActionLink("Users", "Index", "Admin")</li>
+            @*<li><a href="@Url.Content("~/RoleAdmin/")">Roles</a></li>
+            <li><a href="@Url.Content("~/Admin/")">Users</a></li>*@
+            <li> @Html.ActionLink("Log Out", "Logout", "Account")</li>
 
         </ul>
     </nav>
-    <span id="header"></span>
+    <span id="line"></span>
         <div>
             @RenderBody()
         </div>

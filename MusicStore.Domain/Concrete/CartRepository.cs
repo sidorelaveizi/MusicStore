@@ -14,34 +14,5 @@ namespace MusicStore.Domain.Concrete
             _context= context;
 
         }
-       
-        //public void AddItem(Album album, int quantity)
-        //{
-        //    CartLine line = lineCollection
-        //   .Where(a => a.Album.AlbumId == album.AlbumId)
-        //   .FirstOrDefault();
-        //    if (line == null)
-        //    {
-        //        lineCollection.Add(new CartLine
-        //        {
-        //            Album = album,
-        //            Quantity = quantity
-        //        });
-        //    }
-        //    else
-        //    {
-        //        line.Quantity += quantity;
-        //    }
-        //}
-
-        //public void Clear()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void RemoveLine(Album album)
-        //{
-        //    lineCollection.RemoveAll(a => a.Album.AlbumId == album.AlbumId);
-        //}
     }
 }

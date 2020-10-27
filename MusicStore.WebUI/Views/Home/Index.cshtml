@@ -1,47 +1,52 @@
-﻿@model IEnumerable<MusicStore.Domain.Entities.Album>
-
+﻿@*@model IEnumerable<MusicStore.Domain.Entities.Album>*@
+@using MusicStore.Domain.Entities
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Album>
 @{
     ViewBag.Title = "ASP.NET MVC Music Store";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div id="promotion">
     <img class="img-responsive" src="~/Content/Images/home-showcase.png" />
 </div>
 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
-
-    @*<div id="search">
-        <div><h2 style="color:black"> Search Album</h2></div>
-        <p>
-            @Html.TextBox("SearchString")
-            <input type="submit" value="Search" />
-        </p>
-    </div>*@
-    <div class="olContent f1">
-    <h2 style="color:black">Search Album by Title</h2>
+    <div class="olContent">
+        <h2>Search Album by Title</h2>
     </div>
-    <div class="olSearch fr">
-        <input id="btn" type="text" placeholder="Enter Keyword" name="SearchString" class="inputComn houseText form-control" />
+    <div class="olSearch">
+        <input id="btn" type="text" placeholder="Enter Keyword" name="SearchString" class="form-control" />
         <div class="searchIcon">
             <button type="submit" class="searchBtn">
                 <img class="img-responsive" src="~/Content/Images/searchIcon.png" />
             </button>
         </div>
-     </div>
-        }
-        <ul id="album-list">
-            @foreach (var album in Model)
-            {
-                <li>
-                    <a href="@Url.Action("Details", "Store",
+    </div>
+}
+<ul id="album-list">
+    @foreach (var album in Model)
+    {
+        <li>
+            <a href="@Url.Action("Details", "Store",
                 new { id = album.AlbumId })">
 
-                        <img alt="@album.Title" src="@album.AlbumArtUrl" />
-                        <span>@album.Title</span>
-                    </a>
-                </li>
-            }
-        </ul>
+                <img alt="@album.Title" src="@album.AlbumArtUrl" />
+                <span>@album.Title</span>
+            </a>
+        </li>
+    }
+</ul>
+
+<div id="container" style="margin-left: 20px">
+    <p></p>
+    <p></p>
+    <div class="pagination hidden-xs" style="margin-left: 220px">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+</div>
 
 
 

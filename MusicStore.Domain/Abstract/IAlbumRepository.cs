@@ -1,8 +1,6 @@
 ﻿using MusicStore.Domain.Entities;
 using MusicStore.Domain.Models;
 using System.Collections.Generic;
-//using MusicStore.WebUI.Models;
-
 
 namespace MusicStore.Domain.Abstract
 {
@@ -12,7 +10,7 @@ namespace MusicStore.Domain.Abstract
         IEnumerable<Album> GetAlbumsByGenre(int id);
 
 
-        IEnumerable<Album> SearchAlbum(string searchString);
+        IEnumerable<Album> SearchAlbum(string searchString, int? page);
 
         void DeleteAlbum(int albumID);
 
@@ -28,10 +26,5 @@ namespace MusicStore.Domain.Abstract
         void UpdateAlbum(Album album);
         Artist GetArtistById(int id);
         Genre GetGenreById(int id);
-
-        //AlbumListViewModel Paging(int page);
-
-        //void PopulateGenreDropDownList(object selectedDepartment = null
-
     }
 }

@@ -49,16 +49,12 @@ namespace MusicStore.WebUI.Controllers
         // GET: /Store/GenreMenu
 
         [ChildActionOnly]
-        public ActionResult GenreMenu(string category = null, bool horizontalLayout = false)
+        public ActionResult GenreMenu()
         {
-            //ViewBag.SelectedCategory = category;
             AlbumViewModels model = new AlbumViewModels();
             model.Genres = repo.Genres.GetAll();
             return PartialView(model);
         }
-
-
-
 
     }
 }

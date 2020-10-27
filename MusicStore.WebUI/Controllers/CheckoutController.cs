@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using MusicStore.Domain.Abstract;
+﻿using MusicStore.Domain.Abstract;
 using MusicStore.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,8 +10,7 @@ namespace MusicStore.WebUI.Controllers
     public class CheckoutController : Controller
     {
         private readonly IUnitOfWork repo;
-        private const string PromoCode = "FREE";
-
+     
         public CheckoutController(IUnitOfWork work)
         {
             repo = work;
@@ -62,49 +60,14 @@ namespace MusicStore.WebUI.Controllers
                 Session.Remove("cart");
             }
 
-            //var order = new Order();
-            //TryUpdateModel(order);
-
-            //try
-            //{
-            //    if (string.Equals(values["PromoCode"], PromoCode,
-            //        StringComparison.OrdinalIgnoreCase) == false)
-            //    {
-            //        return View(order);
-            //    }
-            //    else
-            //    {
-            //        order.Username = User.Identity.Name;
-            //        order.OrderDate = DateTime.Now;
-
-            //        //Save Order
-            //        repo.Orders.Insert(order);
-            //        repo.Save();
-            //        //Process the order
-            //        var cart = ShoppingCart.GetCart(this.HttpContext);
-            //        cart.CreateOrder(order);
-
-            //        return RedirectToAction("Complete",
-            //            new { id = order.OrderId });
-            //    }
-            //}
-            //catch
-            //{
-            //    //Invalid - redisplay with errors
-            //    return View(order);
-            //}
 
             return View("Complete");
            
         }
          
             // GET: /Checkout/Complete
-            public ActionResult CompleteOrder(int id)
-        {
-            var userId = User.Identity.GetUserId();
-            // Validate customer owns this order
-            
-            // repo.Orders.isValid(id);
+            public ActionResult CompleteOrder()
+        { 
             return View();
         }
     }

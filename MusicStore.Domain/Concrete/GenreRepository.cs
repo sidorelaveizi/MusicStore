@@ -1,6 +1,5 @@
 ﻿using MusicStore.Domain.Concrete;
 using MusicStore.Domain.Entities;
-using System.Collections.Generic;
 
 namespace MusicStore.Domain.Abstract
 {
@@ -10,11 +9,6 @@ namespace MusicStore.Domain.Abstract
         public GenreRepository(ApplicationDbContext context)
         {
             _context = context;
-        }
-        public IEnumerable<Album> GetAlbum(int GenreId)
-        {
-          return _context.Genres.Find(GenreId).Albums;
-
         }
        
     }

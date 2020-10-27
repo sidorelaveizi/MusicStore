@@ -13,12 +13,6 @@ namespace MusicStore.Domain.Abstract
 
         void Update(T obj);
         void Delete(object id);
-        void DeleteCollection(IEnumerable<T> collection);
-
-        T SingleOrDefault(Expression<Func<T, bool>> predicate);
-
-        T FirstOrDefault(Expression<Func<T, bool>> predicate);
-        void InsertCollection(IEnumerable<T> collection);
         void Save();
 
     }

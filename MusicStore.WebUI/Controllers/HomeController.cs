@@ -1,6 +1,5 @@
 ﻿using MusicStore.Domain.Abstract;
 using System.Web.Mvc;
-
 namespace MusicStore.WebUI.Controllers
 {
     public class HomeController : Controller
@@ -13,9 +12,9 @@ namespace MusicStore.WebUI.Controllers
             repo = work;
         }
 
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, int? page)
         {
-            var albums = repo.Albums.SearchAlbum(searchString);
+            var albums = repo.Albums.SearchAlbum(searchString, page);
             // var albums = repo.Albums.GetAll().ToList();
             //var albums = from a in repo.Albums.SearchAlbum(searchString)
             //            select a;

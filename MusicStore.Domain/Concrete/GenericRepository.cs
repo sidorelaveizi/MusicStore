@@ -51,25 +51,6 @@ namespace MusicStore.Domain.Abstract
             T existing = table.Find(id);
             table.Remove(existing);
         }
-
-        public T FirstOrDefault(Expression<Func<T, bool>> predicate)
-        {
-            return context.Set<T>().FirstOrDefault(predicate);
-        }
-        public void InsertCollection(IEnumerable<T> collection)
-        {
-            context.Set<T>().AddRange(collection);
-        }
-
-        public T SingleOrDefault(Expression<Func<T, bool>> predicate)
-        {
-            return context.Set<T>().SingleOrDefault(predicate);
-        }
-        public void DeleteCollection(IEnumerable<T> collection)
-        {
-            context.Set<T>().RemoveRange(collection);
-        }
-   
         public void Save()
         {
             _context.SaveChanges();
