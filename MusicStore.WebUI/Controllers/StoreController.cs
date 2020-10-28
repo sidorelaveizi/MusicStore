@@ -15,7 +15,6 @@ namespace MusicStore.WebUI.Controllers
             repo = work;
 
         }
-
         public ActionResult Index()
         {
             AlbumViewModels model = new AlbumViewModels();

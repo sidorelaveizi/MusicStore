@@ -17,20 +17,12 @@
         <a class="navbar-brand" href="/"  id="app-name">
             <img src="~/Content/Images/logo.png" />
             <span class="hidden-xs">ONLINE MUSIC STORE</span>
-            @*<div class="visible-xs">ASP.NET</div>
-                <div class="visible-xs">MVC</div>*@
-            <div class="visible-xs">MUSIC</div>
-            <div class="visible-xs">STORE</div>
+            <div class="visible-xs">MUSIC STORE</div>
         </a>
         <ul class="nav justify-content-end" id="navlist">
-            @*<li class="nav-item">
-                <a class="nav-link active" href="/">Home</a>
-            </li>*@
             <li>@Html.ActionLink("Home", "Index", "Home")</li>
             <li>@Html.ActionLink("Roles", "Index", "RoleAdmin")</li>
             <li>@Html.ActionLink("Users", "Index", "Admin")</li>
-            @*<li><a href="@Url.Content("~/RoleAdmin/")">Roles</a></li>
-            <li><a href="@Url.Content("~/Admin/")">Users</a></li>*@
             <li> @Html.ActionLink("Log Out", "Logout", "Account")</li>
 
         </ul>
@@ -40,7 +32,7 @@
             @RenderBody()
         </div>
     <footer id="footer" class="panel-footer">
-        <p> built with <a href="http://asp.net/mvc">ASP.NET MVC 5</a></p>
+        <p>© @DateTime.Now.Year - My Sport Store Application</p>
     </footer>
 </body>
 </html>

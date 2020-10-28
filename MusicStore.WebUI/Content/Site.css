@@ -24,15 +24,6 @@ body {
     float: left;
 }
 
-fieldset {
-    border: #9b9993 1px solid;
-    padding: 0 15px;
-    padding-bottom:7px;
-    margin-bottom: 10px;
-    clear: left;
-    min-width: 100%;
-}
-
 #line {
     float: left;
     width: 100%;
@@ -54,6 +45,7 @@ fieldset {
     border-top: 1px dotted #8A8575;
     border-bottom: 1px dotted #8A8575;
     font-family: Constantia, Georgia, serif;
+    font-size:15px;
 }
 
 
@@ -203,7 +195,7 @@ ul.pagination li {
 ul.pagination li a {
     color: black;
     float: left;
-    padding: 8px 16px;
+    padding: 8px 12px ;
     text-decoration: none;
     transition: background-color .3s;
 }
@@ -229,7 +221,8 @@ ul#navlist li {
     ul#navlist li a {
         border-left: 1px dotted #8A8575;
         padding: 10px;
-        margin-top: 10px;
+        margin-top: 12px;
+        margin-bottom:10px;
         color: #8A8575;
         text-decoration: none;
         float: left;
@@ -287,28 +280,30 @@ a:active {
     font-weight: bold;
 }
 
-/***************************** sidebar navigation ****************************/
+/***************sidebar navigation *******************/
 
 #categories {
     font-family: Constantia, Georgia, serif;
     list-style-type: none;
     border-right: #5d5a53 1px dotted;
-    padding-right: 10px;
+    padding-right: 9px;
     margin: 0 25px 0 0;
     float: left;
 }
 
-    #categories a:link, #categories a:visited {
+#categories a:link, #categories a:visited {
         color: #9B9993;
         text-decoration: none;
-    }
+}
 
-    #categories a:hover {
+#categories a:hover {
         color: #F46739;
-    }
+ }
 
+
+/***album details *******/
 div#album-details p {
-    margin-bottom: 5px;
+    margin-bottom: 6px;
     color: #5e5b54;
     font-weight: bold;
 }
@@ -318,11 +313,21 @@ p em {
 }
 
 /* Form styles */
-legend {
-    padding: 10px;
-    font-weight: bold;
+
+fieldset {
+    border: #9b9993 1px solid;
+    padding: 0 15px 5px 8px;
+    margin-bottom: 15px;
+    clear: left;
+    min-width: 100%;
 }
 
+legend {
+    font-weight: bold;
+    width: inherit; 
+    padding: 0 10px; 
+    border-bottom: none;
+}
 
 
 div.editor-field {
@@ -333,6 +338,7 @@ input[type=text], input[type=password], select {
     border: 1px solid #8A8575;
     width: 300px;
 }
+
 
 /* Styles for validation helpers */
 .field-validation-error {
@@ -386,34 +392,3 @@ tr:hover {
     background-color: #fff;
 }
 
-/*Responsive Design*/
-@media all and (max-width: 240px) {
-    #toast-container > div {
-        padding: 8px 8px 8px 50px;
-        width: 11em;
-    }
-
-    #toast-container .toast-close-button {
-        right: -0.2em;
-        top: -0.2em;
-    }
-}
-
-@media all and (min-width: 241px) and (max-width: 480px) {
-    #toast-container > div {
-        padding: 8px 8px 8px 50px;
-        width: 18em;
-    }
-
-    #toast-container .toast-close-button {
-        right: -0.2em;
-        top: -0.2em;
-    }
-}
-
-@media all and (min-width: 481px) and (max-width: 768px) {
-    #toast-container > div {
-        padding: 15px 15px 15px 50px;
-        width: 25em;
-    }
-}

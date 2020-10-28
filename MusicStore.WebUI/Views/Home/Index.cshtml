@@ -1,8 +1,6 @@
-﻿@*@model IEnumerable<MusicStore.Domain.Entities.Album>*@
-@using MusicStore.Domain.Entities
+﻿@model IPagedList<MusicStore.Domain.Entities.Album>
 @using PagedList
 @using PagedList.Mvc
-@model PagedList.IPagedList<Album>
 @{
     ViewBag.Title = "ASP.NET MVC Music Store";
     Layout = "~/Views/Shared/_Layout.cshtml";

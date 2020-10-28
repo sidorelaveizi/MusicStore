@@ -35,7 +35,7 @@ namespace MusicStore.Domain.Abstract
             var albums = GetAllAlbums().ToPagedList(pageNumber, pageSize);
             if (!String.IsNullOrEmpty(searchString))
             {
-                albums = (IPagedList<Album>)albums.Where(a => a.Title.Contains(searchString));
+                  albums = (IPagedList<Album>)albums.Where(a => a.Title.Contains(searchString));
             }
             return albums;
         }

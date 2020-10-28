@@ -15,9 +15,6 @@ namespace MusicStore.WebUI.Controllers
         public ActionResult Index(string searchString, int? page)
         {
             var albums = repo.Albums.SearchAlbum(searchString, page);
-            // var albums = repo.Albums.GetAll().ToList();
-            //var albums = from a in repo.Albums.SearchAlbum(searchString)
-            //            select a;
             return View(albums);
         }
 
