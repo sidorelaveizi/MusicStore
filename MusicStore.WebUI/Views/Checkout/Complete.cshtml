@@ -1,4 +1,5 @@
-﻿@model int?
+﻿
+@using MusicStore.Domain.Entities
 @{
     ViewBag.Title = "Checkout Complete";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,8 +7,9 @@
 
 <h2>Checkout Complete</h2>
 
-<p>Thanks for your order! @*Your order number is: @Model*@</p>
+<p>Thanks for your order!</p>
+
 <p>
     How about shopping for some more music in our
-    @Html.ActionLink("Store", "Index", "Home")
+    @Html.ActionLink("Store", "Index", "Store")
 </p>

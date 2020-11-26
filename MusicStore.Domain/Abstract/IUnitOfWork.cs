@@ -9,7 +9,7 @@ namespace MusicStore.Domain.Abstract
         IArtistRepository Artists { get; }
         ICartRepository Cart { get; }
         IOrderRepository Orders { get; }
-        IOrderDetailsRepository OrdersDetails { get; }
+        IOrderDetailsRepository OrdersDetails { get; } 
         int Save();
         
 

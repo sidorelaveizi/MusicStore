@@ -1,9 +1,6 @@
 ﻿using MusicStore.Domain.Concrete;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace MusicStore.Domain.Abstract
 {
@@ -36,10 +33,6 @@ namespace MusicStore.Domain.Abstract
         public void Insert(T obj)
         {
             table.Add(obj);
-        }
-        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
-        {
-            return table.Where(predicate);
         }
         public void Update(T obj)
         {

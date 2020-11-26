@@ -12,12 +12,16 @@ namespace MusicStore.WebUI.Controllers
             repo = work;
         }
 
+        public ActionResult GetAllAlbums()
+        {
+            var albums = repo.Albums.GetAll();
+            return View(albums);
+        }
         public ActionResult Index(string searchString, int? page)
         {
             var albums = repo.Albums.SearchAlbum(searchString, page);
             return View(albums);
         }
 
-       
     }
 }

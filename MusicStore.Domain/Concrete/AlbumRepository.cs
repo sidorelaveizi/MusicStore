@@ -12,33 +12,39 @@ namespace MusicStore.Domain.Abstract
     public class AlbumRepository : GenericRepository<Album>, IAlbumRepository
     {
         private readonly ApplicationDbContext _context;
-        public AlbumRepository(ApplicationDbContext context) 
+        public AlbumRepository(ApplicationDbContext context)
         {
             _context = context;
 
-        }  
-       public IEnumerable<Album> GetAlbumsByGenre(int id)
+        }
+        public IEnumerable<Album> GetAlbumsByGenre(int id)
         {
             List<Album> albums = new List<Album>();
-           
-            albums= _context.Albums.Where(g => g.GenreId == id).ToList();
+
+            albums = _context.Albums.Where(g => g.GenreId == id).ToList();
 
             return albums;
         }
 
-         // GET: SearchFunctionality and pagination
+        // GET: Search Functionality and pagination
         public IEnumerable<Album> SearchAlbum(string searchString, int? page)
         {
-            var pageNumber = page ?? 1;
-            var pageSize = 18;
+            int pageNumber = page ?? 1;
+            int pageSize = 18;
 
-            var albums = GetAllAlbums().ToPagedList(pageNumber, pageSize);
+            var albums = _context.Albums
+            .Include("Artist").ToList();
             if (!String.IsNullOrEmpty(searchString))
-            {
-                  albums = (IPagedList<Album>)albums.Where(a => a.Title.Contains(searchString));
-            }
-            return albums;
+            {   
+            albums= albums.Where(a => a.Title.ToLower().Contains(searchString.ToLower()) ||
+            a.Artist.Name.ToString().ToLower().Contains(searchString.ToLower())
+             || a.Price.ToString().Contains(searchString)).ToList();
+              
+            }    
+            return albums.ToPagedList(pageNumber, pageSize);
         }
+
+
         public void DeleteAlbum(int albumID)
         {
             Album album = _context.Albums.Find(albumID);

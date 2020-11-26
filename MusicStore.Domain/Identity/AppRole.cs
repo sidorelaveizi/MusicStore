@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace MusicStore.Domain.Infrastructure
+namespace MusicStore.Domain.Identity
 {
     public class AppRole : IdentityRole
     {

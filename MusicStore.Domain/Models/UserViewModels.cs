@@ -1,4 +1,4 @@
-﻿using MusicStore.Domain.Infrastructure;
+﻿using MusicStore.Domain.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

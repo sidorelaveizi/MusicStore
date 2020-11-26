@@ -1,0 +1,51 @@
+﻿@model  IEnumerable<MusicStore.Domain.Models.OrderItemsViewModel>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> Order Details</h2>
+
+<hr />
+
+<table class="table table-responsive">
+    <tr>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+    </tr>
+
+    @{
+        decimal Total = 0;
+    }
+    @foreach (var item in Model)
+    {
+        decimal lineTotal = item.Quantity * item.UnitPrice;
+        Total = @Total + lineTotal;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlbumName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                $@lineTotal
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="4" class="text-right"><b>Total: @Total</b></td>
+    </tr>
+
+</table>
+
+<p>
+    @Html.ActionLink("Back to List", "Index","MyOrder", null, new { @class = "btn btn-primary", @id= "btnDetails"})
+</p>
+

@@ -6,12 +6,9 @@ namespace MusicStore.Domain.Abstract
 {
     public interface IAlbumRepository : IGenericRepository<Album>
     {
-
         IEnumerable<Album> GetAlbumsByGenre(int id);
 
-
         IEnumerable<Album> SearchAlbum(string searchString, int? page);
-
         void DeleteAlbum(int albumID);
 
         List<AdminViewModel> GetAlbums(List<AdminViewModel> model);

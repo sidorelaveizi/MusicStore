@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MusicStore.Domain.Abstract;
-using MusicStore.Domain.Infrastructure;
+using MusicStore.Domain.Identity;
 using MusicStore.Domain.Models;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -21,15 +21,18 @@ namespace MusicStore.WebUI.Controllers
             repo = work;
         }
 
+        [HttpGet]
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl, bool isAdmin=false)
+        public ActionResult Login(string returnUrl, bool isAdmin = false)
         {
             if (ModelState.IsValid)
             {
-                if (HttpContext.User.Identity.IsAuthenticated && User.IsInRole("Administrators"))
+                // Clear the existing external cookie to ensure a clean login process
+
+                if (HttpContext.User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
                 {
                     return RedirectToAction("Index", "Albums");
-                   
+
                 }
                 ViewBag.isAdmin = false;
 
@@ -46,8 +49,9 @@ namespace MusicStore.WebUI.Controllers
             {
                 return View();
             }
-            
+
         }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -55,7 +59,7 @@ namespace MusicStore.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser user = await UserManager.FindAsync(details.Name,details.Password);
+                AppUser user = await UserManager.FindAsync(details.Name, details.Password);
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Invalid name or password.");
@@ -70,22 +74,26 @@ namespace MusicStore.WebUI.Controllers
                         //IsPersistent = false
                         IsPersistent = details.RememberMe
                     }, ident);
-                    if (User.IsInRole("Administrators"))
+                    if (User.IsInRole("Administrator") && User.Identity.IsAuthenticated)
                     {
                         return RedirectToAction("Index", "Albums");
                     }
                     else
                     {
-                        return RedirectToAction("AddressAndPayment", "Checkout");
+                        if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+                        {
+                            return RedirectToAction("CheckoutDetails", "Checkout");
+                        }
+                        return RedirectToAction("Index", "Home");
+
                     }
 
-                   
-                   
                 }
             }
             ViewBag.returnUrl = returnUrl;
             return View(details);
         }
+
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -108,9 +116,10 @@ namespace MusicStore.WebUI.Controllers
                 };
                 IdentityResult result = await UserManager.CreateAsync(user,
                 model.Password);
+
                 if (result.Succeeded)
                 {
-                    UserManager.AddToRole(user.Id, "Users");
+                    UserManager.AddToRole(user.Id, "User");
                     return RedirectToAction("Login", "Account");
                 }
                 else
@@ -149,6 +158,14 @@ namespace MusicStore.WebUI.Controllers
             {
                 return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             }
+        }
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using MusicStore.Domain.Infrastructure;
+using MusicStore.Domain.Identity;
 using MusicStore.Domain.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace MusicStore.WebUI.Controllers
 {
-    [Authorize(Roles = "Administrators")]
+    //[Authorize(Roles = "Administrators")]
     public class RoleAdminController : Controller
     {
         public ActionResult Index()

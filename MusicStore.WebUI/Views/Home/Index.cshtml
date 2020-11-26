@@ -6,45 +6,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="promotion">
-    <img class="img-responsive" src="~/Content/Images/home-showcase.png" />
+<div>
+    <img class="img-responsive" src="~/Content/Images/home-showcase.png" id="imgPromotion"/>
 </div>
+
 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
     <div class="olContent">
-        <h2>Search Album by Title</h2>
+        <h2>Search Albums</h2>
     </div>
     <div class="olSearch">
-        <input id="btn" type="text" placeholder="Enter Keyword" name="SearchString" class="form-control" />
+        @Html.TextBox("searchString", "", new { placeholder = "Search", @id = "btn", @class = "form-control", style = "height: 31px;" })
         <div class="searchIcon">
             <button type="submit" class="searchBtn">
                 <img class="img-responsive" src="~/Content/Images/searchIcon.png" />
             </button>
         </div>
     </div>
-}
-<ul id="album-list">
-    @foreach (var album in Model)
-    {
-        <li>
-            <a href="@Url.Action("Details", "Store",
+        }
+
+        <ul id="album-list">
+            @foreach (var album in Model)
+            {
+                <li>
+                    <a href="@Url.Action("Details", "Store",
                 new { id = album.AlbumId })">
 
-                <img alt="@album.Title" src="@album.AlbumArtUrl" />
-                <span>@album.Title</span>
-            </a>
-        </li>
-    }
-</ul>
+                        <img alt="@album.Title" src="@album.AlbumArtUrl" />
+                        <span>@album.Title</span>
+                    </a>
+                </li>
+            }
+        </ul>
+        @if (Model.PageCount > 1)
+        {
 
-<div id="container" style="margin-left: 20px">
-    <p></p>
-    <p></p>
-    <div class="pagination hidden-xs" style="margin-left: 220px">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-    </div>
-</div>
+            <div id="container" style="margin-left: 25px">
+                <p></p>
+                <p></p>
+                <div class="pagination hidden-xs" style="margin-left: 220px">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                    of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        }
 
 
 

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace MusicStore.Domain.Infrastructure
+namespace MusicStore.Domain.Identity
 {
     public class CustomUserValidator : UserValidator<AppUser>
     {
@@ -13,12 +12,6 @@ namespace MusicStore.Domain.Infrastructure
         public override async Task<IdentityResult> ValidateAsync(AppUser user)
         {
             IdentityResult result = await base.ValidateAsync(user);
-            if (!user.Email.ToLower().EndsWith("@example.com"))
-            {
-                var errors = result.Errors.ToList();
-                errors.Add("Only example.com email addresses are allowed");
-                result = new IdentityResult(errors);
-            }
             return result;
         }
     }

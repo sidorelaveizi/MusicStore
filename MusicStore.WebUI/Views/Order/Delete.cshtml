@@ -1,0 +1,26 @@
+﻿@model MusicStore.Domain.Entities.Order
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>Delete Confirmation</h2>
+
+<p>
+    Are you sure you want to delete the order for customer
+    <strong>@Model.FirstName</strong>?
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" />
+    </p>
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+}

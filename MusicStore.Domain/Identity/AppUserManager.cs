@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using MusicStore.Domain.Concrete;
 
-namespace MusicStore.Domain.Infrastructure
+namespace MusicStore.Domain.Identity
 {
     public class AppUserManager : UserManager<AppUser>
     {
@@ -19,7 +19,7 @@ namespace MusicStore.Domain.Infrastructure
             ApplicationDbContext db = context.Get<ApplicationDbContext>();
             AppUserManager manager = new AppUserManager(new UserStore<AppUser>(db));
 
-            manager.PasswordValidator = new Infrastructure.CustomPasswordValidator
+            manager.PasswordValidator = new Identity.CustomPasswordValidator
             {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = false,

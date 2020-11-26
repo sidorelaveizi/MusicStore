@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 
-namespace MusicStore.Domain.Infrastructure
+namespace MusicStore.Domain.Identity
 {
     public static class IdentityHelpers
     {

@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Log On";
 }
-<h2>Log On</h2>
-@if (ViewBag.isAdmin)
+<h2>Login to MUSIC STORE</h2>
+@if (ViewBag.isAdmin != null && ViewBag.isAdmin == true)
 {
     @Html.ValidationSummary()
     using (Html.BeginForm())

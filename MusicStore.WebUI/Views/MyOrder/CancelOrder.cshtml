@@ -1,0 +1,20 @@
+﻿@model MusicStore.Domain.Entities.Order
+
+@{
+    ViewBag.Title = "Cancle Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p class="error">@ViewBag.Message</p>
+<h2>Cancle Order</h2>
+<hr />
+
+
+@using (Html.BeginForm("CancelOrder", "MyOrder", FormMethod.Post, null))
+{
+    <input type="submit" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger" value="Cancel Order" style="margin-bottom:20px;"/>
+  
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

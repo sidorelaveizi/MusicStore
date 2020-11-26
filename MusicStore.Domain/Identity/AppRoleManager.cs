@@ -5,7 +5,7 @@ using Microsoft.Owin;
 using MusicStore.Domain.Concrete;
 using System;
 
-namespace MusicStore.Domain.Infrastructure
+namespace MusicStore.Domain.Identity
 {
     public class AppRoleManager : RoleManager<AppRole>, IDisposable
     {

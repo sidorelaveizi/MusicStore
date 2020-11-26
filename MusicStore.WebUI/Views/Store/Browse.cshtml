@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<MusicStore.Domain.Entities.Album>*@
-@model MusicStore.Domain.Models.AlbumViewModels
+﻿@model MusicStore.Domain.Models.AlbumViewModels
 @{
     ViewBag.Title = "Browse Albums";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,3 +19,12 @@
         }
     </ul>
 </div>
+
+<script>
+    $(function () {
+        $("#album-list img").mouseover(function () {
+            $(this).animate({ height: '+=23', width: '+=23' })
+                .animate({ height: '-=23', width: '-=23' });
+        });
+    });
+</script>

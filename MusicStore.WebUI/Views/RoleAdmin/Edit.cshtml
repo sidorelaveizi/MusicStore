@@ -1,5 +1,5 @@
 ﻿@using MusicStore.Domain.Models
-@using MusicStore.Domain.Infrastructure
+@using MusicStore.Domain.Identity
 @model RoleEditModel
 @{ ViewBag.Title = "Edit Role";
    Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -53,6 +53,8 @@
             }
         </table>
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+    <div id="roleButton">
+        <button type="submit" class="btn btn-primary">Save</button>
+        @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+    </div>
 }

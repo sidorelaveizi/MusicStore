@@ -1,13 +1,18 @@
-﻿using MusicStore.Domain.Entities;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-
-namespace MusicStore.Domain.Concrete
+﻿namespace MusicStore.Domain.Migrations
 {
-    class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    using MusicStore.Domain.Entities;
+    using System.Collections.Generic;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<MusicStore.Domain.Concrete.ApplicationDbContext>
     {
-        protected override void Seed(ApplicationDbContext context)
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+        }
+
+        protected override void Seed(MusicStore.Domain.Concrete.ApplicationDbContext context)
         {
             var genres = new List<Genre>
             {
@@ -424,7 +429,7 @@ namespace MusicStore.Domain.Concrete
                 new Album { Title = "Bartok: Violin & Viola Concertos", Genre = genres.Single(g => g.Name == "Classical"), Price = 8.99M, Artist = artists.Single(a => a.Name == "Yehudi Menuhin"), AlbumArtUrl = "/Content/Images/placeholder.gif" },
                 new Album { Title = "Bach: The Cello Suites", Genre = genres.Single(g => g.Name == "Classical"), Price = 8.99M, Artist = artists.Single(a => a.Name == "Yo-Yo Ma"), AlbumArtUrl = "/Content/Images/placeholder.gif" },
                 new Album { Title = "Ao Vivo [IMPORT]", Genre = genres.Single(g => g.Name == "Latin"), Price = 8.99M, Artist = artists.Single(a => a.Name == "Zeca Pagodinho"), AlbumArtUrl = "/Content/Images/placeholder.gif" },
-            }.ForEach(a => context.Albums.Add(a));
+            }.ForEach(a => context.Albums.AddOrUpdate(a));
             base.Seed(context);
         }
     }

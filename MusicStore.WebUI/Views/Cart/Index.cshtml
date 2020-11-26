@@ -7,16 +7,19 @@
 
 <h3>
     <em>Review</em> your cart:
+
 </h3>
+
 @{
     if (Session["cart"] != null)
     {
-        <p class="button">
-            @Html.ActionLink("Checkout Now", "AddressAndPayment", "Checkout")
+        <p class="button" id="myButton">
+            @Html.ActionLink("Checkout Now", "CheckoutDetails", "Checkout", null,
+                        new { @class = "cart-payment"})
         </p>
 
         <p class="button">
-            @Html.ActionLink("Continue Shopping", "Index", "Home")
+            @Html.ActionLink("Continue Shopping", "Index", "Store")
         </p>
         <div id="update-message">
         </div>
@@ -77,9 +80,14 @@
     }
     else
     {
-        <h4>No item in your cart.</h4>
+        <div class="alert alert-info" style="margin-top:24px">
+            <strong>No product added to cart!</strong>
+        </div>
+
+        @Html.ActionLink("Go Back", "Index", "Home",null, new { @style = "font-size:17px; margin-top: 20px; color:gray;" })
     }
-
-
-
 }
+
+
+
+

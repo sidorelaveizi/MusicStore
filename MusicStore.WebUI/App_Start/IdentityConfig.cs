@@ -2,7 +2,7 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using MusicStore.Domain.Concrete;
-using MusicStore.Domain.Infrastructure;
+using MusicStore.Domain.Identity;
 using Owin;
 
 namespace MusicStore.WebUI.App_Start

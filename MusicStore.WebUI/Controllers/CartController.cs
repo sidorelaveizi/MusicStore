@@ -35,8 +35,7 @@ namespace MusicStore.WebUI.Controllers
                     Album = repo.Albums.GetById(id),
                     Quantity = 1
                 });
-                
-                ViewBag.count = cart.Count();
+                ViewBag.count = cart.Sum(q => q.Quantity);
                 Session["cart"] = cart;
             }
             else
@@ -51,8 +50,8 @@ namespace MusicStore.WebUI.Controllers
                 {
                     cart.Add(new CartLine { Album = repo.Albums.GetById(id), Quantity = 1 });
                 }
-                ViewBag.count = cart.Count();
                 Session["cart"] = cart;
+                ViewBag.count = cart.Sum(q => q.Quantity);            
             }
 
             return View("Index");
@@ -77,14 +76,20 @@ namespace MusicStore.WebUI.Controllers
                     return i;
             return -1;
         }
-
-        public ActionResult CartSummary(CartLine cart)
+        public JsonResult checkSession()
         {
-            
-            return View(cart);
+            Session s = new Session();
+            if (Session["cart"] != null)
+            {
+                s.sessionValue = true;
+            }
+            else
+            {
+                s.sessionValue = false;
+
+            }
+            return Json(s, JsonRequestBehavior.AllowGet);
         }
-
-
 
     }
 }

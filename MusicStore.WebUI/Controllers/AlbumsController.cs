@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace MusicStore.WebUI.Controllers
 {
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Roles = "Administrator")]
     public class AlbumsController : Controller
     {
         private readonly IUnitOfWork repo;
@@ -41,18 +41,28 @@ namespace MusicStore.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Album album)
         {
-            if (ModelState.IsValid)
+            try
             {
-                repo.Albums.InsertAlbum(album);
-                repo.Save();
-                return RedirectToAction("Index");
-            }
-            var genreList = repo.Albums.GetGenres();
-            var artistList = repo.Albums.GetArtist();
+                if (ModelState.IsValid)
+                {
+                    repo.Albums.InsertAlbum(album);
+                    repo.Save();
+                    return RedirectToAction("Index");
+                }
+                var genreList = repo.Albums.GetGenres();
+                var artistList = repo.Albums.GetArtist();
 
-            ViewBag.GenreId = new SelectList(genreList, "GenreId", "Name", album.GenreId);
-            ViewBag.ArtistId = new SelectList(artistList, "ArtistId", "Name", album.ArtistId);
+                ViewBag.GenreId = new SelectList(genreList, "GenreId", "Name", album.GenreId);
+                ViewBag.ArtistId = new SelectList(artistList, "ArtistId", "Name", album.ArtistId);
+                
+            }
+            catch (DataException)
+            {
+                
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
             return View(album);
+
         }
 
         public ActionResult Edit(int id)

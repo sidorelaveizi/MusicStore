@@ -18,6 +18,7 @@ namespace MusicStore.WebUI.Controllers
         public ActionResult Index()
         {
             AlbumViewModels model = new AlbumViewModels();
+            model.Albums = repo.Albums.GetAll();
             model.Genres = repo.Genres.GetAll();
             return View(model);
             
@@ -35,7 +36,7 @@ namespace MusicStore.WebUI.Controllers
         public ActionResult Browse(int id)
         {
             //Retrieve Genre and its Associated Albums
-           var viewModel = new AlbumViewModels()
+            var viewModel = new AlbumViewModels()
            {
                Albums = repo.Albums.GetAlbumsByGenre(id),
                GenreName = repo.Albums.GetGenreById(id).Name

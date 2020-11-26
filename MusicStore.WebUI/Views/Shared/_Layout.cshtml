@@ -1,58 +1,119 @@
 ﻿@using MusicStore.Domain.Entities
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Site.css")"
-          rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-</head>
-<body>
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="/" id="app-name">
-            <img src="~/Content/Images/logo.png" />
-            <span class="hidden-xs">ONLINE MUSIC STORE</span>
-            <div class="visible-xs">MUSIC STORE</div>
-        </a>
-        <ul class="nav justify-content-end" id="navlist">
-            <li class="nav-item">
-                @Html.ActionLink("Home", "Index", "Home")
-            </li>
-            <li class="nav-item">
-                @Html.ActionLink("Store", "Index", "Store")
-            </li>
-            <li><a href="@Url.Content("~/Cart/")">Cart <span>@ViewBag.count</span></a></li>
-            <li>
+@using Microsoft.AspNet.Identity
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title</title>
 
-                @Html.ActionLink("Admin", "Login", "Account", new { isAdmin = true }, null)
-            </li>
+        <!-- Bootstrap CSS -->
+        <link href="~/Content/bootstrap.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
 
-        </ul>
-    </nav>
-    <span id="line"></span>
+        <!-- Custom styles for this template -->
+        <link href="@Url.Content("~/Content/Site.css")"
+              rel="stylesheet" type="text/css" />
+        <!-- -->
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+        @Scripts.Render("~/Scripts/Index.js")
 
-    <div class="row panel">
-        <div id="genre" @*class="col-sm-3 hidden-xs"*@ class="col-xs-3">
-            <div>
-                @{Html.RenderAction("GenreMenu", "Store");}
+        @RenderSection("scripts", required: false)
+    </head>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="/" id="app-name">
+                <img src="~/Content/Images/logo.png" />
+                <span class="hidden-xs">ONLINE MUSIC STORE</span>
+                <div class="visible-xs">MUSIC STORE</div>
+            </a>
+            <ul class="nav justify-content-end" id="navlist">
+                <li class="nav-item">
+                    @Html.ActionLink("Home", "Index", "Home")
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Store", "Index", "Store")
+                </li>
+                <li><a href="@Url.Content("~/Cart/")">Cart <span class="badge">@ViewBag.count</span></a></li>
+                <li class="nav-item">
+                    @Html.ActionLink("My Orders", "Index", "MyOrder")
+                </li>
+
+                @if (User.IsInRole("Administrator"))
+                {
+                    <li>
+
+                        @Html.ActionLink("Admin", "Login", "Account", new { isAdmin = true }, null)
+                    </li>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li> @Html.ActionLink("Log Out", "Logout", "Account")</li>
+                }
+                else
+                {
+                    <li>
+
+                        @Html.ActionLink("Login", "Login", "Account")
+                    </li>
+                }
+            </ul>
+        </nav>
+        <span id="line"></span>
+        <div class="row panel">
+            <div id="genre" class="col-xs-2">
+                <div>
+                    @{Html.RenderAction("GenreMenu", "Store");}
+                </div>
+            </div>
+
+            <div class="col-xs-9">
+                @RenderBody()
             </div>
         </div>
 
+        <footer id="footer" class="panel-footer">
+            <p>© @DateTime.Now.Year - My Sport Store Application</p>
+        </footer>
 
-        <div class="col-xs-8" @*class="col-xs-12 col-sm-8"*@>
-            @RenderBody()
-        </div>
-    </div>
+        <script>
+            $(document).ready(function () {
+                $("#myButton").click(function () {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        url: '/Cart/checkSession',
+                        data: '{}',
+                        success: function (data) {
+                            alert(data.sessionValue);  
+                            if (data.sessionValue == true) {
+                                if (Session["cart"] == null)
+                                    $("#myButton").attr('disabled', 'true');
 
-    <footer id="footer" class="panel-footer">
-        <p>© @DateTime.Now.Year - My Sport Store Application</p>
-    </footer>
+                                else
+                                    $("#myButton").attr('disabled', 'false');
+                            }
+                            else {
+                                location.href = "/Home/Login"
+                            } 
+                            //if (Session["cart"] == null)
+                            //    $("#myButton").attr('disabled', 'true');
 
-</body>
+                            //else
+                            //    $("#myButton").attr('disabled', 'false');
+                            // $("#myButton").removeAttr('disabled');
+                        },
+                        error: function (xhr) {
+                            alert('error');
+                        }
+                        
+                    });
+                })
+            }
+        </script>
+    </body>
 </html>

@@ -1,4 +1,4 @@
-﻿@using MusicStore.Domain.Infrastructure
+﻿@using MusicStore.Domain.Identity
 @model IEnumerable<AppUser>
 @{
     ViewBag.Title = "Index";
@@ -9,7 +9,11 @@
         User Accounts
     </div>
     <table class="table table-striped">
-        <tr><th>ID</th><th>Name</th><th>Email</th><th></th></tr>
+        <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th></th>
+        </tr>
         @if (Model.Count() == 0)
         {
             <tr><td colspan="4" class="text-center">No User Accounts</td></tr>
@@ -19,7 +23,6 @@
             foreach (AppUser user in Model)
             {
     <tr>
-        <td>@user.Id</td>
         <td>@user.UserName</td>
         <td>@user.Email</td>
         <td>

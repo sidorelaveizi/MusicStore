@@ -4,13 +4,23 @@
     border: none;
 }
 #roleButton{
-    margin-bottom:12px;
+    margin-bottom:18px;
+    margin-top:0px;
     
 }
 
+#btnDetails {
+    color:white;
+}
+#orders{
+   font-size:20px;
+}
+#allOrders{
+    margin-bottom:35px;
+}
 #roles {
-    margin-top: 65px;
-    margin-bottom: 35px;
+    margin-top: 60px;
+    margin-bottom: 26px;
 }
 
 body {
@@ -42,10 +52,11 @@ body {
     bottom: 0;
     width: 100%;
     text-align: right;
+   /* position: absolute;*/
     border-top: 1px dotted #8A8575;
     border-bottom: 1px dotted #8A8575;
     font-family: Constantia, Georgia, serif;
-    font-size:15px;
+    font-size: 15px;
 }
 
 
@@ -56,11 +67,9 @@ body {
     padding: 45px 0px 5px 0px;
 }
 
-#promotion {
+#imgPromotion {
     width: 100%;
     height: auto;
-    max-height: 300px;
-    max-width: 700px;
 }
 
 ul li a {
@@ -145,7 +154,9 @@ ul {
     width: 85%;
     margin-left: 8px;
     position: relative;
-    margin-bottom:6px;
+    margin-bottom: 6px;
+    box-shadow: none;
+    outline: 0;
 }
 
 .searchIcon {
@@ -163,7 +174,7 @@ ul {
     padding-right: 5px;
     text-transform: uppercase;
     cursor: pointer;
-    height: 35px;
+    height: 31.5px;
     width: 45px;
 }
 
@@ -286,8 +297,8 @@ a:active {
     font-family: Constantia, Georgia, serif;
     list-style-type: none;
     border-right: #5d5a53 1px dotted;
-    padding-right: 9px;
-    margin: 0 25px 0 0;
+    padding-right: 12px;
+    margin: 0 22px 0 0;
     float: left;
 }
 
