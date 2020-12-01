@@ -76,20 +76,6 @@ namespace MusicStore.WebUI.Controllers
                     return i;
             return -1;
         }
-        public JsonResult checkSession()
-        {
-            Session s = new Session();
-            if (Session["cart"] != null)
-            {
-                s.sessionValue = true;
-            }
-            else
-            {
-                s.sessionValue = false;
-
-            }
-            return Json(s, JsonRequestBehavior.AllowGet);
-        }
 
     }
 }

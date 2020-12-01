@@ -17,11 +17,9 @@
         <!-- -->
         <script src="~/Scripts/jquery-3.4.1.min.js"></script>
         <script src="~/Scripts/jquery.validate.min.js"></script>
-        <script src="~/Scripts/jquery-3.4.1.js"></script>
         <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-        @Scripts.Render("~/Scripts/Index.js")
-
-        @RenderSection("scripts", required: false)
+        @*<script src="~/Scripts/Index.js"></script>
+        @Scripts.Render("~/Scripts/Index.js")*@
     </head>
     <body>
         <!-- Navbar -->
@@ -64,6 +62,8 @@
             </ul>
         </nav>
         <span id="line"></span>
+
+        <!-- sidebar menu -->
         <div class="row panel">
             <div id="genre" class="col-xs-2">
                 <div>
@@ -75,45 +75,28 @@
                 @RenderBody()
             </div>
         </div>
-
+        <!-- footer content -->
         <footer id="footer" class="panel-footer">
             <p>© @DateTime.Now.Year - My Sport Store Application</p>
         </footer>
 
         <script>
             $(document).ready(function () {
-                $("#myButton").click(function () {
-                    $.ajax({
-                        type: 'POST',
-                        dataType: 'json',
-                        url: '/Cart/checkSession',
-                        data: '{}',
-                        success: function (data) {
-                            alert(data.sessionValue);  
-                            if (data.sessionValue == true) {
-                                if (Session["cart"] == null)
-                                    $("#myButton").attr('disabled', 'true');
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '/Cart/Buy',
+                    data: '{}',
+                    success: function DisableEnable() {
+                        if (Session["cart"] == null)
+                            $("#myButton").attr('disabled', 'true');
 
-                                else
-                                    $("#myButton").attr('disabled', 'false');
-                            }
-                            else {
-                                location.href = "/Home/Login"
-                            } 
-                            //if (Session["cart"] == null)
-                            //    $("#myButton").attr('disabled', 'true');
-
-                            //else
-                            //    $("#myButton").attr('disabled', 'false');
-                            // $("#myButton").removeAttr('disabled');
-                        },
-                        error: function (xhr) {
-                            alert('error');
-                        }
-                        
-                    });
+                        else
+                            $("#myButton").attr('disabled', 'false');
+                    },
                 })
-            }
+                
+            });
         </script>
     </body>
 </html>

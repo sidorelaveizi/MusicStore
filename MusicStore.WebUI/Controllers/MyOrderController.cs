@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
 using MusicStore.Domain.Abstract;
-using MusicStore.Domain.Concrete;
 using System.Data;
 using System.Net;
 using System.Web.Mvc;
@@ -9,12 +8,6 @@ namespace MusicStore.WebUI.Controllers
 {
     public class MyOrderController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        public MyOrderController(ApplicationDbContext context)
-        {
-            _context = context;
-
-        }
         private readonly IUnitOfWork repo;
 
         public MyOrderController(IUnitOfWork work)

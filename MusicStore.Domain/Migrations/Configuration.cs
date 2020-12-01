@@ -27,6 +27,8 @@
                 new Genre { Name = "Pop" },
                 new Genre { Name = "Classical" }
             };
+            genres.ForEach(g => context.Genres.AddOrUpdate(g));
+            context.SaveChanges();
 
             var artists = new List<Artist>
             {
@@ -180,6 +182,8 @@
                 new Artist { Name = "Yo-Yo Ma" },
                 new Artist { Name = "Zeca Pagodinho" }
             };
+            artists.ForEach(a => context.Artists.AddOrUpdate(a));
+            context.SaveChanges();
 
             new List<Album>
             {
