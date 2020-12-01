@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace MusicStore.WebUI.Controllers
 {
-    //[Authorize(Roles = "Administrators")]
+    [Authorize]
     public class AdminController : Controller
     {
         public ActionResult Index()
